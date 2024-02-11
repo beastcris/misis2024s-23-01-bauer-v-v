@@ -1,2 +1,2 @@
-add_executable (test_stack test_stack.cpp)
+add_executable (test_stack test_stack.cpp "doctest.h")
 target_link_libraries(test_stack stack)
