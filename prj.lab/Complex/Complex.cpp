@@ -40,7 +40,7 @@ Complex& Complex::operator/= (const double ins) { return operator/=(Complex(ins)
 }
 
 [[nodiscard]] Complex operator- (const double lhs, const Complex& rhs) noexcept {
-  return operator-(rhs, Complex(lhs));
+  return operator-(Complex(lhs), rhs);
 }
 
 [[nodiscard]] Complex operator* (const Complex& lhs, const Complex rhs) noexcept {
@@ -72,7 +72,7 @@ Complex& Complex::operator/= (const double ins) { return operator/=(Complex(ins)
 }
 
 [[nodiscard]] Complex operator/ (const double lhs, const Complex& rhs) {
-  return operator/(rhs, Complex(lhs));
+  return operator/(Complex(lhs), rhs);
 }
 
 Complex& Complex::operator+=(const Complex& comp) noexcept {
