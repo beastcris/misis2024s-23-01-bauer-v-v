@@ -1,9 +1,9 @@
 #include <stackarr/stackarr.hpp>
 
 StackArr::StackArr() {
-  Complex* beg = new Complex[capacity_];
-  ptr = beg;
-  beg = nullptr;
+  Complex* tmp = new Complex[capacity_];
+  ptr = tmp;
+  tmp = nullptr;
 }
 
 StackArr::~StackArr() noexcept{
@@ -13,7 +13,7 @@ StackArr::~StackArr() noexcept{
 
 StackArr::StackArr(const StackArr& rhs) {
   Complex* copy = new Complex[rhs.capacity_];
-  for (std::ptrdiff_t i = 0; i <= rhs.top_; ++i) {
+  for (std::ptrdiff_t i = 0; i < rhs.top_; ++i) {
     copy[i] = rhs.ptr[i];
   }
 
@@ -23,7 +23,7 @@ StackArr::StackArr(const StackArr& rhs) {
 }
 
 StackArr& StackArr::operator=(const StackArr& rhs) {
-  if (capacity_ < rhs.top_) {
+  if (capacity_ <= rhs.top_) {
     Complex* copy = new Complex[rhs.capacity_];
     ptr = copy;
     copy = nullptr;
@@ -36,18 +36,35 @@ StackArr& StackArr::operator=(const StackArr& rhs) {
   return *this;
 }
 
-bool StackArr::IsEmpty() {
+bool StackArr::IsEmpty() noexcept{
   if (top_ == 0) {
     return true;
   }
   return false;
 }
 
-void StackArr::Pop() {
+void StackArr::Pop() noexcept{
   ptr[top_] = 0;
   top_ = std::max(static_cast<long long>(0), top_ - 1);
 }
 
 void StackArr::Push(const Complex& rhs) {
-    
+  if (top_ == capacity_) {
+    Complex* tmp = new Complex[capacity_ * 2];
+    capacity_ *= 2;
+    for (std::ptrdiff_t i = 0; i < top_; ++i) {
+      tmp[i] = ptr[i];
+    }
+    ptr = tmp;
+    tmp = nullptr;
+  }
+  ptr[top_] = rhs;
+  ++top_;
+}
+
+const Complex& StackArr::Top() {
+  if (top_ == 0) {
+    throw std::exception("Stack is Empty");
+  }
+  return ptr[top_ - 1];
 }
