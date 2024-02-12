@@ -1,5 +1,5 @@
-CHECK: 20240212-071406
-OK: file codeforces.id is correct
+CHECK: 20240212-174130
+ERROR: codeforces id is wrong
 ERROR: invalid file name test
 OK: CMake generator successed
 OK: CMake build (MSVC x64) successed
