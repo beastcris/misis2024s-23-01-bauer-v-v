@@ -10,12 +10,14 @@ public:
   StackArr();
   StackArr(const StackArr& rhs);
   ~StackArr() noexcept;
-  StackArr& operator=(const StackArr& rhs);
+  [[nodiscard]] StackArr& operator=(const StackArr& rhs);
   void Push(const Complex& rhs);
   void Pop() noexcept;
-  bool IsEmpty() noexcept;
-  const Complex& Top();
+  [[nodiscard]] bool IsEmpty() const noexcept;
+  [[nodiscard]] Complex& Top();
+  [[nodiscard]] const Complex& Top() const;
   
+  void Clear() noexcept;
 private:
   std::ptrdiff_t capacity_ = 1000;
   Complex* ptr = nullptr;

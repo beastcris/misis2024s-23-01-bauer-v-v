@@ -36,15 +36,14 @@ StackArr& StackArr::operator=(const StackArr& rhs) {
   return *this;
 }
 
-bool StackArr::IsEmpty() noexcept{
+bool StackArr::IsEmpty() const noexcept{
   if (top_ == 0) {
     return true;
   }
   return false;
 }
 
-void StackArr::Pop() noexcept{
-  ptr[top_] = 0;
+void StackArr::Pop() noexcept {
   top_ = std::max(static_cast<long long>(0), top_ - 1);
 }
 
@@ -62,9 +61,21 @@ void StackArr::Push(const Complex& rhs) {
   ++top_;
 }
 
-const Complex& StackArr::Top() {
+const Complex& StackArr::Top() const{
   if (top_ == 0) {
     throw std::exception("Stack is Empty");
   }
   return ptr[top_ - 1];
+}
+
+Complex& StackArr::Top() {
+  if (top_ == 0) {
+    throw std::exception("Stack is Empty");
+  }
+  top_ -= 1;
+  return ptr[top_];
+} 
+
+void StackArr::Clear() noexcept {
+  top_ = 0;
 }
