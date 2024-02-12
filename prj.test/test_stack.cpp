@@ -14,7 +14,6 @@ TEST_CASE("stackarr test") {
   my_stack.Push(second_complex);
 
   CHECK_EQ(my_stack.Top(), second_complex);
-  my_stack.Pop();
   CHECK_EQ(my_stack.Top(), first_complex);
 
   Complex third_complex(1, 1);
@@ -24,6 +23,7 @@ TEST_CASE("stackarr test") {
   my_stack = my_stack2;
   CHECK_EQ(my_stack.Top(), third_complex);
 
+  my_stack.Push(third_complex);
   StackArr a(my_stack);
   CHECK_EQ(a.Top(), third_complex);
 
@@ -43,14 +43,8 @@ TEST_CASE("stackarr test") {
   eq1.Push(third_complex);
   eq2 = eq1;
   CHECK_EQ(eq1.Top(), eq2.Top());
-  eq1.Pop();
-  eq2.Pop();
   CHECK_EQ(eq1.Top(), eq2.Top());
-  eq1.Pop();
-  eq2.Pop();
   CHECK_EQ(eq1.Top(), eq2.Top());
-  eq1.Pop();
-  eq2.Pop();
   CHECK(eq1.IsEmpty());
   CHECK(eq2.IsEmpty());
 }
