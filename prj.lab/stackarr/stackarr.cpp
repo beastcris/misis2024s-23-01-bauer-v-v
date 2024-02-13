@@ -63,14 +63,14 @@ void StackArr::Push(const Complex& rhs) {
 
 const Complex& StackArr::Top() const{
   if (top_ == 0) {
-    throw std::exception("Stack is Empty");
+    throw std::logic_error("Stack Is Empty");
   }
   return ptr[top_ - 1];
 }
 
 Complex& StackArr::Top() {
   if (top_ == 0) {
-    throw std::exception("Stack is Empty");
+    throw std::logic_error("Stack Is Empty");
   }
   return ptr[top_];
 } 
