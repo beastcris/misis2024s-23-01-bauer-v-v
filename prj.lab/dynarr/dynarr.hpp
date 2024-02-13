@@ -7,21 +7,21 @@
 
 class DynArr {
 public:
-  [[nodiscard]] DynArr() noexcept;
+  [[nodiscard]] DynArr();
   [[nodiscard]] DynArr(const std::ptrdiff_t size);
-  [[nodiscard]] DynArr(const DynArr& rhs) noexcept;
-  ~DynArr() noexcept;
+  [[nodiscard]] DynArr(const DynArr& rhs) ;
+  ~DynArr();
 
-  [[nodiscard]] float& operator[] (const std::ptrdiff_t& idx);
-  [[nodiscard]] const float& operator[] (const std::ptrdiff_t& idx) const;
+  [[nodiscard]] float& operator[] (const std::ptrdiff_t idx);
+  [[nodiscard]] const float& operator[] (const std::ptrdiff_t idx) const;
 
-  DynArr& operator=(const DynArr& rhs) noexcept;
+  DynArr& operator=(const DynArr& rhs);
   void Resize(const std::ptrdiff_t NewSize);
 
   std::ostream& writeTo(std::ostream& os) const noexcept;
 
   [[nodiscard]] float* getData() noexcept;
-  [[nodiscard]] std::ptrdiff_t Size() noexcept;
+  [[nodiscard]] std::ptrdiff_t Size() const noexcept;
 
 private:
   std::ptrdiff_t size_ = 0;

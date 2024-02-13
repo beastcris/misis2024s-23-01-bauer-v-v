@@ -1,6 +1,7 @@
 #include <dynarr/dynarr.hpp>
 
-[[nodiscard]] DynArr::DynArr() noexcept {};
+
+[[nodiscard]] DynArr::DynArr() {};
 [[nodiscard]] DynArr::DynArr(const std::ptrdiff_t size) :size_(size), capacity_(2 * size) {
   if (size <= 0) {
     throw std::invalid_argument("INVALID ARRAY SIZE");
@@ -9,7 +10,7 @@
   data_ = arr;
   this->PutZero(this->data_);
 };
-[[nodiscard]] DynArr::DynArr(const DynArr& rhs) noexcept:size_(rhs.size_) {
+[[nodiscard]] DynArr::DynArr(const DynArr& rhs) :size_(rhs.size_) {
   if (rhs.size_ > capacity_) {
     capacity_ = 2 * rhs.size_;
   }
@@ -20,9 +21,9 @@
     *(data_ + i) = *(rhs.data_ + i);
   }
 }
-DynArr::~DynArr() noexcept { delete[] data_; }
+DynArr::~DynArr() { delete[] data_; }
 
-DynArr& DynArr::operator=(const DynArr& rhs) noexcept{
+DynArr& DynArr::operator=(const DynArr& rhs) {
   if (rhs.size_ > size_) {
     if (rhs.size_ > capacity_) {
       capacity_ = 2 * rhs.size_;
@@ -45,14 +46,14 @@ DynArr& DynArr::operator=(const DynArr& rhs) noexcept{
   return *this;
 }
 
-[[nodiscard]] float& DynArr::operator[] (const std::ptrdiff_t& idx) {
+[[nodiscard]] float& DynArr::operator[] (const std::ptrdiff_t idx) {
   if (idx >= size_ || idx <0) {
     throw std::out_of_range("OUT OF RANGE");
   }
   return *(data_ + idx);
 }
 
-[[nodiscard]] const float& DynArr::operator[] (const std::ptrdiff_t& idx) const{
+[[nodiscard]] const float& DynArr::operator[] (const std::ptrdiff_t idx) const{
   if (idx >= size_ || idx < 0) {
     throw std::out_of_range("OUT OF RANGE");
   }
@@ -87,7 +88,7 @@ void DynArr::Resize(const std::ptrdiff_t NewSize) {
 }
 
 [[nodiscard]] float* DynArr::getData() noexcept { return data_; }
-std::ptrdiff_t DynArr::Size() noexcept { return size_; }
+std::ptrdiff_t DynArr::Size() const noexcept { return size_; }
 
 [[nodiscard]] void DynArr::PutZero(float* data) noexcept {
   for (std::ptrdiff_t i = 0; i < size_; ++i) {
