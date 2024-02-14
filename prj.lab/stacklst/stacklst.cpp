@@ -1,5 +1,4 @@
 #include <stacklst/stacklst.hpp>
-#include <iostream>
 
 bool StackLst::IsEmpty() const noexcept {
   return (head_ == nullptr);
@@ -29,10 +28,59 @@ Complex& StackLst::Top() {
   return head_->data_;
 }
 
-void StackLst::Pop() {
-  /*node* tmp = new node;
-  tmp = 
+void StackLst::Pop() noexcept{
+  Node *tmp = head_->next;
   delete head_;
   head_ = tmp;
-  tmp = nullptr;*/
+  tmp = nullptr;
+}
+
+void StackLst::Clear() noexcept{
+  while (!(this->IsEmpty())) {
+    this->Pop();
+  }
+}
+
+StackLst::~StackLst() {
+  this->Clear();
+}
+
+StackLst& StackLst::operator=(const StackLst& rhs) {
+  Node* ptr = rhs.head_;
+  Node* last = nullptr;
+  while (ptr != nullptr) {
+    Node* curr = new Node;
+    if (last != nullptr) {
+      last->next = curr;
+    }
+    else {
+      head_ = curr;
+    }
+    curr->data_ = ptr->data_;
+    last = curr;
+    ptr = ptr->next;
+    
+  }
+  last = nullptr;
+
+  return *this;
+}
+
+StackLst::StackLst(const StackLst& rhs) {
+  Node* ptr = rhs.head_;
+  Node* last = nullptr;
+  while (ptr != nullptr) {
+    Node* curr = new Node;
+    if (last != nullptr) {
+      last->next = curr;
+    }
+    else {
+      head_ = curr;
+    }
+    curr->data_ = ptr->data_;
+    last = curr;
+    ptr = ptr->next;
+
+  }
+  last = nullptr;
 }
