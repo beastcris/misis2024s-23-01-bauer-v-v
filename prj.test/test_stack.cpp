@@ -1,6 +1,8 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include <stackarr/stackarr.hpp>
+#include <iostream>
+
 
 TEST_CASE("stackarr test") {
   StackArr my_stack;
