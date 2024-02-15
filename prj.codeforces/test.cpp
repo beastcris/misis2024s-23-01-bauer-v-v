@@ -13,10 +13,6 @@ enum A {
 
 int main() {
   
-
-  const int a = 10;
-  const int& r = a;
-  const_cast<int&> (r) = 4;
-
-  std::cout << a;
+  int *a = nullptr;
+  delete a;
 }
