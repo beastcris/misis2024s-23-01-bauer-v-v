@@ -29,10 +29,12 @@ Complex& StackLst::Top() {
 }
 
 void StackLst::Pop() noexcept{
-  Node *tmp = head_->next;
-  delete head_;
-  head_ = tmp;
-  tmp = nullptr;
+  if (!(this->IsEmpty())) {
+    Node *tmp = head_->next;
+    delete head_;
+    head_ = tmp;
+    tmp = nullptr;
+  }
 }
 
 void StackLst::Clear() noexcept{

@@ -1,7 +1,6 @@
 
 #ifndef STACKARR_HPP
 #define STACKARR_HPP
-#include <iostream>
 #include <Complex/Complex.hpp>
 
 class StackArr{
