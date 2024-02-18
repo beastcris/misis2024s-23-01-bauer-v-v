@@ -8,11 +8,11 @@ class StackArr{
 public:
   StackArr();
   StackArr(const StackArr& rhs);
-  ~StackArr() noexcept;
+  ~StackArr();
   [[nodiscard]] StackArr& operator=(const StackArr& rhs);
   void Push(const Complex& rhs);
   void Pop() noexcept;
-  [[nodiscard]] bool IsEmpty() const noexcept;
+  bool IsEmpty() const noexcept;
   [[nodiscard]] Complex& Top();
   [[nodiscard]] const Complex& Top() const;
   
