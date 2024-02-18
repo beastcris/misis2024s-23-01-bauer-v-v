@@ -1,5 +1,5 @@
-CHECK: 20240212-174130
-ERROR: codeforces id is wrong
+CHECK: 20240216-122703
+OK: file codeforces.id is correct
 ERROR: invalid file name test
 OK: CMake generator successed
 OK: CMake build (MSVC x64) successed
@@ -7,5 +7,5 @@ STATUS: lab complex - test-ok
 STATUS: lab complex_io - test-ok
 STATUS: lab rational - test-failed
 STATUS: lab rational_io - test-failed
-ERROR: lab dynarr - test build failed
+STATUS: lab dynarr - test-ok
 ERROR: lab stackarr - test build failed
