@@ -72,7 +72,7 @@ Complex& StackArr::Top() {
   if (top_ == 0) {
     throw std::logic_error("Stack Is Empty");
   }
-  return ptr[top_];
+  return ptr[top_ - 1];
 } 
 
 void StackArr::Clear() noexcept {
