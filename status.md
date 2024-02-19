@@ -1,4 +1,4 @@
-CHECK: 20240216-122703
+CHECK: 20240219-071300
 OK: file codeforces.id is correct
 ERROR: invalid file name test
 OK: CMake generator successed
@@ -9,3 +9,4 @@ STATUS: lab rational - test-failed
 STATUS: lab rational_io - test-failed
 STATUS: lab dynarr - test-ok
 ERROR: lab stackarr - test build failed
+ERROR: lab stacklst - test build failed
