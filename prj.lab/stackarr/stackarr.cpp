@@ -13,10 +13,7 @@ StackArr::~StackArr() noexcept{
 
 StackArr::StackArr(const StackArr& rhs) {
   Complex* copy = new Complex[rhs.capacity_];
-  for (std::ptrdiff_t i = 0; i < rhs.top_; ++i) {
-    copy[i] = rhs.ptr[i];
-  }
-
+  std::copy(rhs.ptr, rhs.ptr + rhs.top_, copy);
   ptr = copy;
   copy = nullptr;
   top_ = rhs.top_;
