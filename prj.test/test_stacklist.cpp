@@ -1,16 +1,36 @@
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest.h"
 
 
 #include <stacklst/stacklst.hpp>
-#include <iostream>
 
-int main() {
-  StackLst a;
-
-  Complex first_complex = { 1.0, 1.1 };
-  Complex second_complex = { 2.5, 7.1 };
-  Complex third_complex = { 2.0, 0.0 };
-
-  a.Push(first_complex);
-  a.Pop();
-  std::cout << a.IsEmpty();
+TEST_CASE("Testing StackArr class") {
+  SUBCASE("Testing methods") {
+    StackLst arr;
+    Complex val = { 1,0 };
+    Complex val1 = { 3,4 };
+    arr.Push(val);
+    CHECK(arr.Top() == val);
+    arr.Push(val1);
+    CHECK(arr.Top() == val1);
+    arr.Pop();
+    CHECK(arr.Top() == val);
+    arr.Pop();
+    CHECK(arr.IsEmpty());
+    arr.Push(val);
+    arr.Push(val1);
+    StackLst arr1{ arr };
+    CHECK(arr1.Top() == val1);
+    arr.Pop();
+    CHECK(arr.Top() == val);
+    CHECK(arr1.Top() == val1);
+    arr.Clear();
+    arr.Push(val);
+    arr.Push(val1);
+    StackLst arr2 = arr;
+    CHECK(arr2.Top() == val1);
+    arr.Pop();
+    CHECK(arr2.Top() == val1);
+    CHECK(arr.Top() == val);
+  }
 }
