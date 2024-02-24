@@ -13,7 +13,7 @@ public:
 
   ~QueueLst();
 
-  [[nodiscard]] QueueLst& operator=(const QueueLst& rhs) = default;
+  [[nodiscard]] QueueLst& operator=(const QueueLst& rhs);
 
   bool IsEmpty() const noexcept;
 
