@@ -6,7 +6,7 @@ StackArr::StackArr() {
   tmp = nullptr;
 }
 
-StackArr::~StackArr() noexcept{
+StackArr::~StackArr() {
   delete[] ptr;
   ptr = nullptr;
 }
@@ -25,10 +25,7 @@ StackArr& StackArr::operator=(const StackArr& rhs) {
     ptr = copy;
     copy = nullptr;
   }
-  for (std::ptrdiff_t i = 0; i < rhs.top_; ++i) {
-    ptr[i] = rhs.ptr[i];
-  }
-
+  std::copy(rhs.ptr, rhs.ptr + rhs.top_, ptr);
   top_ = rhs.top_;
   return *this;
 }
@@ -48,9 +45,7 @@ void StackArr::Push(const Complex& rhs) {
   if (top_ == capacity_) {
     Complex* tmp = new Complex[capacity_ * 2];
     capacity_ *= 2;
-    for (std::ptrdiff_t i = 0; i < top_; ++i) {
-      tmp[i] = ptr[i];
-    }
+    std::copy(ptr, ptr + top_, tmp);
     ptr = tmp;
     tmp = nullptr;
   }
