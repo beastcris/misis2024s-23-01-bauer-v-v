@@ -73,3 +73,4 @@ TEST_CASE("copy ctor") {
   b.Pop();
   CHECK_EQ(b.Top(), first_complex);
 }
+
