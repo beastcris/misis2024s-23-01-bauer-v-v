@@ -48,23 +48,44 @@ StackLst::~StackLst() {
 }
 
 StackLst& StackLst::operator=(const StackLst& rhs) {
-  Node* ptr = rhs.head_;
-  Node* last = nullptr;
-  while (ptr != nullptr) {
-    Node* curr = new Node;
-    if (last != nullptr) {
-      last->next = curr;
+  if (rhs.IsEmpty()) {
+    this->Clear();
+    return *this;
+  }
+  Node* ptrMain = rhs.head_;
+  Node* ptrCopy = head_;
+  Node* last = head_;
+
+  while (ptrMain!=nullptr) {
+    if (ptrCopy != nullptr) {
+      ptrCopy->data_ = ptrMain->data_;
+      last = ptrCopy;
+      ptrCopy = ptrCopy->next;
+      
     }
     else {
-      head_ = curr;
+      Node* node = new Node;
+      node->data_ = ptrMain->data_;
+      if (last != nullptr) {
+        last->next = node;
+        last = node;
+      }
+      else {
+        last = node;
+        head_ = node;
+      }
     }
-    curr->data_ = ptr->data_;
-    last = curr;
-    ptr = ptr->next;
-    
+    ptrMain = ptrMain->next;
   }
+  last->next = nullptr;
   last = nullptr;
+  Node *Next = nullptr;
+  while (ptrCopy!=nullptr) {
 
+    Next = ptrCopy->next;
+    delete ptrCopy;
+    ptrCopy = Next;
+  }
   return *this;
 }
 
