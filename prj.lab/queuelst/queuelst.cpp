@@ -65,5 +65,49 @@ QueueLst::QueueLst(const QueueLst& rhs) {
     ptr = ptr->next;
 
   }
+  tail_ = last;
   last = nullptr;
+}
+
+QueueLst& QueueLst::operator=(const QueueLst& rhs) {
+  if (rhs.IsEmpty()) {
+    this->Clear();
+    return *this;
+  }
+  Node* ptrMain = rhs.head_;
+  Node* ptrCopy = head_;
+  Node* last = head_;
+
+  while (ptrMain != nullptr) {
+    if (ptrCopy != nullptr) {
+      ptrCopy->data_ = ptrMain->data_;
+      last = ptrCopy;
+      ptrCopy = ptrCopy->next;
+
+    }
+    else {
+      Node* node = new Node;
+      node->data_ = ptrMain->data_;
+      if (last != nullptr) {
+        last->next = node;
+        last = node;
+      }
+      else {
+        last = node;
+        head_ = node;
+      }
+    }
+    ptrMain = ptrMain->next;
+  }
+  tail_ = last;
+  last->next = nullptr;
+  last = nullptr;
+  Node* Next = nullptr;
+  while (ptrCopy != nullptr) {
+
+    Next = ptrCopy->next;
+    delete ptrCopy;
+    ptrCopy = Next;
+  }
+  return *this;
 }
