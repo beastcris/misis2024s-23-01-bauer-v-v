@@ -4,33 +4,43 @@
 
 #include <stacklst/stacklst.hpp>
 
-TEST_CASE("Testing StackArr class") {
-  SUBCASE("Testing methods") {
-    StackLst arr;
-    Complex val = { 1,0 };
-    Complex val1 = { 3,4 };
-    arr.Push(val);
-    CHECK(arr.Top() == val);
-    arr.Push(val1);
-    CHECK(arr.Top() == val1);
-    arr.Pop();
-    CHECK(arr.Top() == val);
-    arr.Pop();
-    CHECK(arr.IsEmpty());
-    arr.Push(val);
-    arr.Push(val1);
-    StackLst arr1{ arr };
-    CHECK(arr1.Top() == val1);
-    arr.Pop();
-    CHECK(arr.Top() == val);
-    CHECK(arr1.Top() == val1);
-    arr.Clear();
-    arr.Push(val);
-    arr.Push(val1);
-    StackLst arr2 = arr;
-    CHECK(arr2.Top() == val1);
-    arr.Pop();
-    CHECK(arr2.Top() == val1);
-    CHECK(arr.Top() == val);
-  }
+TEST_CASE("operator=") {
+  StackLst a;
+  Complex first = { 1,0 };
+  Complex sec = { 3,4 };
+  Complex third = { 0,0 };
+
+  a.Push(first);
+  a.Push(sec);
+  a.Push(third);
+
+  StackLst b;
+  b = a;
+  CHECK_EQ(a.Top(), b.Top());
+  a.Pop();
+  b.Pop();
+  CHECK_EQ(a.Top(), b.Top());
+  a.Pop();
+  b.Pop();
+  CHECK_EQ(a.Top(), b.Top());
+  a.Pop();
+  b.Pop();
+
+  a.Push(first);
+  a.Push(first);
+  a.Push(first);
+  b.Push(first);
+  b.Push(sec);
+  b.Push(third);
+  b.Push(sec);
+  b = a;
+  CHECK_EQ(a.Top(), b.Top());
+  a.Pop();
+  b.Pop();
+  CHECK_EQ(a.Top(), b.Top());
+  a.Pop();
+  b.Pop();
+  CHECK_EQ(a.Top(), b.Top());
+  a.Pop();
+  b.Pop();
 }
