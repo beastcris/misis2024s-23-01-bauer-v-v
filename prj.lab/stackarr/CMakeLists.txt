@@ -1,8 +1,6 @@
-add_library(stack stackarr.cpp stackarr.hpp)
+add_library(stackarr stackarr.cpp stackarr.hpp)
 
 
-target_link_libraries(stack complex)
+target_link_libraries(stackarr complex)
 
-set_property(TARGET stack PROPERTY CXX_STANDARD 20)
-
-
+set_property(TARGET stackarr PROPERTY CXX_STANDARD 20)
