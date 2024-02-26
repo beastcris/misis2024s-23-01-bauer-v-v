@@ -66,4 +66,33 @@ TEST_CASE("base") {
   CHECK_EQ(a.Top(), first_complex);
   a.Pop();
   CHECK_EQ(a.Top(), first_complex);
+
+  a.Clear();
+  a.Push(first_complex);
+  a.Pop();
+  CHECK(a.IsEmpty());
+
+
+  a.Push(first_complex);
+  a.Push(first_complex);
+  a.Push(first_complex);
+  a.Push(first_complex);
+  b.Push(second_complex);
+  a = b;
+  CHECK_EQ(a.Top(), b.Top());
+  a.Push(first_complex);
+  CHECK_EQ(second_complex, a.Top());
+  a.Pop();
+  CHECK_EQ(first_complex, a.Top());
+
+  QueueLst c;
+  c = b;
+  CHECK_EQ(c.Top(), b.Top());
+  c.Push(first_complex);
+  CHECK_EQ(second_complex, c.Top());
+  c.Pop();
+  CHECK_EQ(first_complex, c.Top());
+
+  a.Clear();
+  CHECK_THROWS(a.Top());
 }
