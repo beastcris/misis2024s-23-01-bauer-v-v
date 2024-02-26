@@ -32,10 +32,16 @@ void QueueLst::Pop() noexcept{
 }
 
 Complex& QueueLst::Top() {
+  if (head_ == nullptr) {
+    throw std::logic_error("Stack is empty");
+  }
   return head_->data_;
 }
 
 const Complex& QueueLst::Top() const {
+  if (head_ == nullptr) {
+    throw std::logic_error("Stack is empty");
+  }
   return head_->data_;
 }
 
