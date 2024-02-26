@@ -6,17 +6,24 @@
 
 class StackLst {
 public:
-  StackLst() = default;
-  StackLst(const StackLst& rhs);
-  ~StackLst();
-  StackLst& operator=(const StackLst& rhs);
+  [[nodiscard]] StackLst() = default;
 
-  [[nodiscard]] bool IsEmpty() const noexcept;
-  void Push(Complex& rhs);
+  [[nodiscard]] StackLst(const StackLst& rhs);
+
+  ~StackLst();
+
+  [[nodiscard]] StackLst& operator=(const StackLst& rhs);
+
+  bool IsEmpty() const noexcept;
+
   void Pop() noexcept;
-  [[nodiscard]] const Complex& Top() const;
+
+  void Push(const Complex& rhs);
+
   [[nodiscard]] Complex& Top();
-  
+
+  [[nodiscard]] const Complex& Top() const;
+
   void Clear() noexcept;
 private:
 
