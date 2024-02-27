@@ -4,31 +4,27 @@
 
 int main() {
   
-  cv::VideoCapture cap("C:/Users/Huawei/source/repos/opencv/sources/samples/cpp/tutorial_code/calib3d/real_time_pose_estimation/Data/box.mp4");
+  cv::Mat img = cv::imread("C:/Users/Huawei/Desktop/2task.png");
 
-  if (cap.isOpened() == false)
-  {
-    std::cout << "Cannot open the video file" << std::endl;
-    std::cin.get(); 
+
+  if (img.empty()) {
+    std::cout << "Failed";
+    std::cin.get();
     return -1;
   }
+  cv::Mat OldImg = cv::imread("C:/Users/Huawei/Desktop/2task.png");
 
-  
-  cv::String wn = "My first vidoe";
-  cv::namedWindow(wn, cv::WINDOW_NORMAL);
+  img.convertTo(img, -1, 4, 0);
 
-  bool bSuccess = true;
-  while (bSuccess!=false) {
-    cv::Mat frame;
-    bool bSuccess = cap.read(frame);
+  cv::String first = "first window";
+  cv::String second = "second window";
+  cv::namedWindow(first);
+  cv::namedWindow(second);
 
-    cv::imshow(wn, frame);
+  cv::imshow(first, OldImg);
+  cv::imshow(second, img);
 
+  cv::waitKey(0);
 
-    if (cv::waitKey(10) == 27)
-    {
-      std::cout << "Esc key is pressed by user. Stoppig the video" << std::endl;
-      break;
-    }
-  }
+  cv::destroyAllWindows();
 }
