@@ -4,7 +4,7 @@ bool StackLst::IsEmpty() const noexcept {
   return (head_ == nullptr);
 }
 
-void StackLst::Push(Complex& rhs) {
+void StackLst::Push(const Complex& rhs) {
   Node* curr = new Node;
   curr->data_ = rhs;
   curr->next = head_;
