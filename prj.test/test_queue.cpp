@@ -95,4 +95,5 @@ TEST_CASE("base") {
 
   a.Clear();
   CHECK_THROWS(a.Top());
+  std::cout << 1;
 }
