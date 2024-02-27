@@ -67,3 +67,26 @@ void QueueArr::Push(const Complex& rhs) {
   }
 }
 
+QueueArr::QueueArr(const QueueArr& rhs) {
+  Complex* tmp = new Complex[rhs.size_];
+  std::copy(rhs.data_ + rhs.head_, rhs.data_ + rhs.size_, tmp);
+  std::copy(rhs.data_ + rhs.tail_, rhs.data_ + rhs.tail_ + rhs.head_, tmp + rhs.size_ - rhs.head_);
+  data_ = tmp;
+  size_ = rhs.size_;
+  head_ = 0;
+  tail_ = size_ - 1;
+}
+
+QueueArr& QueueArr::operator=(const QueueArr& rhs) {
+  if (rhs.IsEmpty()) {
+    this->Clear();
+    return *this;
+  }
+
+  head_ = 0;
+  tail_ = rhs.size_ - 1;
+  std::copy(rhs.data_ + rhs.head_, rhs.data_ + rhs.size_, data_);
+  std::copy(rhs.data_ + rhs.tail_, rhs.data_ + rhs.tail_ + rhs.head_, data_ + rhs.size_ - rhs.head_);
+  return *this;
+}
+
