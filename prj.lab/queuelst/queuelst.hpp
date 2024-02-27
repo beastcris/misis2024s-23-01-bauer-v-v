@@ -2,7 +2,7 @@
 #ifndef QUEUELST_HPP
 #define QUEUELST_HPP
 #include <Complex/Complex.hpp>
-
+#include <iosfwd>
 
 class QueueLst {
 
