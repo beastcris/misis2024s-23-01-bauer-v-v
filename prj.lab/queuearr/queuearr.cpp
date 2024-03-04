@@ -67,14 +67,11 @@ void QueueArr::Push(const Complex& rhs) {
   }
 }
 
-QueueArr::QueueArr(const QueueArr& rhs) {
+QueueArr::QueueArr(const QueueArr& rhs) :size_(rhs.size_), head_(rhs.head_), tail_(rhs.tail_) {
   Complex* tmp = new Complex[rhs.size_];
-  std::copy(rhs.data_ + rhs.head_, rhs.data_ + rhs.size_, tmp);
-  std::copy(rhs.data_ + rhs.tail_, rhs.data_ + rhs.tail_ + rhs.head_, tmp + rhs.size_ - rhs.head_);
+  std::copy(rhs.data_, rhs.data_ + size_, tmp);
   data_ = tmp;
-  size_ = rhs.size_;
-  head_ = 0;
-  tail_ = size_ - 1;
+  tmp = nullptr;
 }
 
 QueueArr& QueueArr::operator=(const QueueArr& rhs) {
@@ -83,10 +80,25 @@ QueueArr& QueueArr::operator=(const QueueArr& rhs) {
     return *this;
   }
 
-  head_ = 0;
-  tail_ = rhs.size_ - 1;
-  std::copy(rhs.data_ + rhs.head_, rhs.data_ + rhs.size_, data_);
-  std::copy(rhs.data_ + rhs.tail_, rhs.data_ + rhs.tail_ + rhs.head_, data_ + rhs.size_ - rhs.head_);
+  if (size_ < rhs.size_) {
+    delete[] data_;
+    Complex* tmp = new Complex[rhs.size_];
+    data_ = tmp;
+    tmp = nullptr;
+    size_ = rhs.size_;
+  }
+  
+  if (rhs.tail_ < rhs.head_) {
+    tail_ = rhs.size_ - rhs.size_ + rhs.tail_;
+    head_ = 0;
+    std::copy(rhs.data_ + rhs.head_, rhs.data_ + rhs.size_, data_);
+    std::copy(rhs.data_, rhs.data_ + rhs.tail_ + 1, data_ + rhs.size_ - rhs.head_);
+  }
+  else {
+    tail_ = rhs.tail_ - rhs.head_;
+    head_ = 0;
+    std::copy(rhs.data_ + rhs.head_, rhs.data_ + rhs.tail_ + 1, data_);
+  }
   return *this;
 }
 
