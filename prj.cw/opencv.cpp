@@ -4,7 +4,7 @@
 
 int main() {
   
-  cv::Mat img = cv::imread("C:/Users/Huawei/Desktop/2task.png");
+  cv::Mat img = cv::imread("C:/Users/Huawei/Desktop/data2.png");
 
 
   if (img.empty()) {
@@ -12,19 +12,23 @@ int main() {
     std::cin.get();
     return -1;
   }
-  cv::Mat OldImg = cv::imread("C:/Users/Huawei/Desktop/2task.png");
+  
+  cv::cvtColor(img, img, cv::COLOR_BGR2GRAY);
 
-  img.convertTo(img, -1, 4, 0);
+  cv::Mat new_img;
+  cv::equalizeHist(img, new_img);
 
-  cv::String first = "first window";
-  cv::String second = "second window";
-  cv::namedWindow(first);
-  cv::namedWindow(second);
+  cv::String windowNameOldPic = "Old Img";
+  cv::String windowNameNewPic = "New Img";
 
-  cv::imshow(first, OldImg);
-  cv::imshow(second, img);
+  cv::namedWindow(windowNameNewPic);
+  cv::namedWindow(windowNameOldPic);
+
+  cv::imshow(windowNameOldPic, img);
+  cv::imshow(windowNameNewPic, new_img);
 
   cv::waitKey(0);
 
   cv::destroyAllWindows();
+
 }
