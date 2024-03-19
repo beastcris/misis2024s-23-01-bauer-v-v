@@ -2,6 +2,14 @@
 
 
 [[nodiscard]] DynArr::DynArr() {};
+DynArr::DynArr(DynArr&& rhs) noexcept 
+  :size_(rhs.size_)
+  ,capacity_(rhs.capacity_) {
+  data_ = rhs.data_;
+  rhs.size_ = 0;
+  rhs.capacity_ = 0;
+  rhs.data_ = nullptr;
+}
 [[nodiscard]] DynArr::DynArr(const std::ptrdiff_t size) :size_(size), capacity_(2 * size) {
   if (size <= 0) {
     throw std::invalid_argument("INVALID ARRAY SIZE");
@@ -22,6 +30,15 @@
   }
 }
 DynArr::~DynArr() { delete[] data_; }
+
+DynArr& DynArr::operator=(DynArr&& rhs) {
+  if (this != &rhs) {
+    std::swap(size_, rhs.size_);
+    std::swap(capacity_, rhs.capacity_);
+    std::swap(data_, rhs.data_);
+  }
+  return *this;
+}
 
 DynArr& DynArr::operator=(const DynArr& rhs) {
   if (rhs.size_ > size_) {
