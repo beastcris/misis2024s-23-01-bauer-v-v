@@ -9,10 +9,12 @@ public:
   [[nodiscard]] StackLst() = default;
 
   [[nodiscard]] StackLst(const StackLst& rhs);
+  StackLst(StackLst&& rhs) noexcept;
 
   ~StackLst();
 
   [[nodiscard]] StackLst& operator=(const StackLst& rhs);
+  StackLst& operator=(StackLst&& rhs) noexcept;
 
   bool IsEmpty() const noexcept;
 

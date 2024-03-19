@@ -1,5 +1,7 @@
 #include <stacklst/stacklst.hpp>
 
+
+
 bool StackLst::IsEmpty() const noexcept {
   return (head_ == nullptr);
 }
@@ -89,6 +91,13 @@ StackLst& StackLst::operator=(const StackLst& rhs) {
   return *this;
 }
 
+StackLst& StackLst::operator=(StackLst&& rhs) noexcept {
+  if (this != &rhs) {
+    std::swap(head_, rhs.head_);
+  }
+  return *this;
+}
+
 StackLst::StackLst(const StackLst& rhs) {
   Node* ptr = rhs.head_;
   Node* last = nullptr;
@@ -106,4 +115,8 @@ StackLst::StackLst(const StackLst& rhs) {
 
   }
   last = nullptr;
+}
+
+StackLst::StackLst(StackLst&& rhs) noexcept :head_(rhs.head_) {
+  rhs.head_ = nullptr;
 }
