@@ -11,11 +11,13 @@ public:
   Rational() = default;
   Rational(int64_t num);
   Rational(const Rational& rhs) = default;
+  Rational(Rational&& rhs) noexcept;
 
   Rational(int64_t num, int64_t den);
-
+  
   ~Rational() = default;
   Rational& operator=(const Rational& rhs) = default;
+  Rational& operator=(Rational&& rhs) noexcept;
 
   bool operator==(const Rational& rhs) const noexcept;
   bool operator!=(const Rational& rhs) const noexcept;

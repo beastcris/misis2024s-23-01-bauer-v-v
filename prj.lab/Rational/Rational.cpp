@@ -12,6 +12,15 @@ Rational::Rational(int64_t num, int64_t den) :num_(num), den_(den) {
   }
   (*this).Upd();
 };
+Rational::Rational(Rational&& rhs) noexcept :num_(rhs.num_), den_(rhs.den_) {}
+
+Rational& Rational::operator=(Rational&& rhs) noexcept {
+  if (this != &rhs) {
+    std::swap(num_, rhs.num_);
+    std::swap(den_, rhs.den_);
+  }
+  return *this;
+}
 
 bool Rational::operator==(const Rational& rhs) const noexcept { return den_ == rhs.den_ && num_ == rhs.num_; }
 bool Rational::operator!=(const Rational& rhs) const noexcept { return !operator==(rhs); }
