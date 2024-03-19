@@ -74,6 +74,17 @@ QueueArr::QueueArr(const QueueArr& rhs) :size_(rhs.size_), head_(rhs.head_), tai
   tmp = nullptr;
 }
 
+QueueArr::QueueArr(QueueArr&& rhs) noexcept
+  :head_(rhs.head_)
+  , size_(rhs.size_)
+  , tail_(rhs.tail_)
+  , data_(rhs.data_) {
+  rhs.data_ = nullptr;
+  rhs.head_ = -1;
+  rhs.tail_ = -1;
+  rhs.size_ = 0;
+}
+
 QueueArr& QueueArr::operator=(const QueueArr& rhs) {
   if (rhs.IsEmpty()) {
     this->Clear();
@@ -102,3 +113,12 @@ QueueArr& QueueArr::operator=(const QueueArr& rhs) {
   return *this;
 }
 
+QueueArr& QueueArr::operator=(QueueArr&& rhs) {
+  if (this != &rhs) {
+    std::swap(head_, rhs.head_);
+    std::swap(tail_, rhs.tail_);
+    std::swap(size_, rhs.size_);
+    std::swap(data_, rhs.data_);
+  }
+  return *this;
+}

@@ -10,10 +10,12 @@ public:
   [[nodiscard]] QueueArr() = default;
 
   [[nodiscard]] QueueArr(const QueueArr& rhs);
+  QueueArr(QueueArr&& rhs) noexcept;
 
   ~QueueArr();
 
   [[nodiscard]] QueueArr& operator=(const QueueArr& rhs);
+  QueueArr& operator=(QueueArr&& rhs) noexcept;
 
   bool IsEmpty() const noexcept;
 
