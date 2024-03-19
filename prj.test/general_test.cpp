@@ -13,16 +13,11 @@ enum A {
 };
 
 int main() {
-  int* a = new int[6];
-  for (int i = 0; i < 6 ; ++i) {
-    a[i] = i;
-  }
-  int* b= new int[6];
+  
+  int v = 5;
+  for (int i = 0; i < 10; ++i) {
+    int&& tmp = v + 5;
 
-  std::copy(a,a+2 , b);
-  std::copy(a + 2, a + 4, b + 2);
-
-  for (std::ptrdiff_t i = 0; i < 6; ++i) {
-    std::cout << *(b + i);
+    std::cout << i << ' ' << tmp << '\n';
   }
 }
