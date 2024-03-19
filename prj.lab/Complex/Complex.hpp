@@ -13,10 +13,12 @@ struct Complex {
   Complex(const double real);
   Complex(const double real, const double imaginary);
   Complex(const Complex& rhs) = default;
+  Complex(Complex&& rhs) noexcept;
   ~Complex() = default;
 
   //assignment operator
   Complex& operator=(const Complex& rhs) = default;
+  Complex& operator=(Complex&& rhs) noexcept;
 
   //logical operators
   [[nodiscard]] bool operator==(const Complex& cmp) const noexcept;

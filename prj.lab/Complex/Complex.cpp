@@ -4,6 +4,15 @@ static const double eps = 2 * std::numeric_limits<double>::epsilon();
 
 Complex::Complex(const double real) :Complex(real, 0.0) {}
 Complex::Complex(const double real, const double imaginary) :re(real), im(imaginary) {}
+Complex::Complex(Complex&& rhs) noexcept:im(rhs.im), re(rhs.re) {}
+
+Complex& Complex::operator=(Complex&& rhs) noexcept{
+  if (this != &rhs) {
+    std::swap(im, rhs.im);
+    std::swap(re, rhs.re);
+  }
+  return *this;
+}
 
 [[nodiscard]] bool Complex::operator==(const Complex& cmp) const noexcept { return ((abs(cmp.re - re) <= eps) && (abs(cmp.im - im) <= eps)); }
 [[nodiscard]] bool Complex::operator==(const double cmp) const noexcept { return operator==(Complex(cmp)); }
