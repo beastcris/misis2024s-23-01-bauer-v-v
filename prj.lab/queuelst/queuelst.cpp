@@ -75,6 +75,13 @@ QueueLst::QueueLst(const QueueLst& rhs) {
   last = nullptr;
 }
 
+QueueLst::QueueLst(QueueLst&& rhs)
+  :head_(rhs.head_)
+  , tail_(rhs.tail_) {
+  rhs.tail_ = nullptr;
+  rhs.head_ = nullptr;
+}
+
 QueueLst& QueueLst::operator=(const QueueLst& rhs) {
   if (rhs.IsEmpty()) {
     this->Clear();
@@ -114,6 +121,14 @@ QueueLst& QueueLst::operator=(const QueueLst& rhs) {
     Next = ptrCopy->next;
     delete ptrCopy;
     ptrCopy = Next;
+  }
+  return *this;
+}
+
+QueueLst& QueueLst::operator=(QueueLst&& rhs) {
+  if (this != &rhs) {
+    std::swap(tail_, rhs.tail_);
+    std::swap(head_, rhs.head_);
   }
   return *this;
 }

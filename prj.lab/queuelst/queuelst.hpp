@@ -10,10 +10,12 @@ public:
   [[nodiscard]] QueueLst() = default;
 
   [[nodiscard]] QueueLst(const QueueLst& rhs);
+  QueueLst(QueueLst&& rhs) noexcept;
 
   ~QueueLst();
 
   [[nodiscard]] QueueLst& operator=(const QueueLst& rhs);
+  QueueLst& operator=(QueueLst&& rhs) noexcept;
 
   bool IsEmpty() const noexcept;
 
