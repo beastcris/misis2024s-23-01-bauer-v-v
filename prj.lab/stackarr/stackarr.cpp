@@ -19,6 +19,15 @@ StackArr::StackArr(const StackArr& rhs) {
   top_ = rhs.top_;
 }
 
+StackArr::StackArr(StackArr&& rhs) noexcept
+  : capacity_(rhs.capacity_)
+  , top_(rhs.top_)
+  , ptr (rhs.ptr) {
+  rhs.ptr = nullptr;
+  rhs.capacity_ = 1;
+  rhs.top_ = 0;
+}
+
 StackArr& StackArr::operator=(const StackArr& rhs) {
   if (capacity_ <= rhs.top_) {
     Complex* copy = new Complex[rhs.capacity_];
@@ -27,6 +36,15 @@ StackArr& StackArr::operator=(const StackArr& rhs) {
   }
   std::copy(rhs.ptr, rhs.ptr + rhs.top_, ptr);
   top_ = rhs.top_;
+  return *this;
+}
+
+StackArr& StackArr::operator=(StackArr&& rhs) noexcept{
+  if (this != &rhs) {
+    std::swap(capacity_, rhs.capacity_);
+    std::swap(top_, rhs.top_);
+    std::swap(ptr, rhs.ptr);
+  }
   return *this;
 }
 

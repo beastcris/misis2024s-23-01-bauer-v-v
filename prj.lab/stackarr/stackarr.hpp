@@ -10,10 +10,11 @@ public:
   [[nodiscard]] StackArr();
 
   [[nodiscard]] StackArr(const StackArr& rhs);
-
+  StackArr(StackArr&& rhs) noexcept;
   ~StackArr();
 
   [[nodiscard]] StackArr& operator=(const StackArr& rhs);
+  StackArr& operator=(StackArr&& rhs) noexcept;
 
   bool IsEmpty() const noexcept;
 
