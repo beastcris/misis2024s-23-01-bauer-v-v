@@ -113,7 +113,7 @@ QueueArr& QueueArr::operator=(const QueueArr& rhs) {
   return *this;
 }
 
-QueueArr& QueueArr::operator=(QueueArr&& rhs) {
+QueueArr& QueueArr::operator=(QueueArr&& rhs) noexcept{
   if (this != &rhs) {
     std::swap(head_, rhs.head_);
     std::swap(tail_, rhs.tail_);
