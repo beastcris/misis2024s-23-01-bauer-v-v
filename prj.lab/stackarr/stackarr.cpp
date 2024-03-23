@@ -11,7 +11,7 @@ StackArr::~StackArr() {
   ptr = nullptr;
 }
 
-StackArr::StackArr(const StackArr& rhs) {
+StackArr::StackArr(const StackArr& rhs): capacity_(rhs.capacity_) {
   Complex* copy = new Complex[rhs.capacity_];
   std::copy(rhs.ptr, rhs.ptr + rhs.top_, copy);
   ptr = copy;
@@ -31,6 +31,7 @@ StackArr::StackArr(StackArr&& rhs) noexcept
 StackArr& StackArr::operator=(const StackArr& rhs) {
   if (capacity_ <= rhs.top_) {
     Complex* copy = new Complex[rhs.capacity_];
+    capacity_ = rhs.capacity_;
     ptr = copy;
     copy = nullptr;
   }
