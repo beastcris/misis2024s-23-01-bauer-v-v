@@ -1,4 +1,4 @@
-Canny edge detecror
+Canny edge detector
 
 1. Remove noise using Gaussian filter (https://en.wikipedia.org/wiki/Gaussian_filter)
 2.
