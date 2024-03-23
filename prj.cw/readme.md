@@ -7,5 +7,6 @@ Canny edge detecror
 5.
 
 
-https://docs.opencv.org/3.4/da/d5c/tutorial_canny_detector.html
+https://docs.opencv.org/3.4/da/d5c/tutorial_canny_detector.html\t
 https://en.wikipedia.org/wiki/Canny_edge_detector
+
