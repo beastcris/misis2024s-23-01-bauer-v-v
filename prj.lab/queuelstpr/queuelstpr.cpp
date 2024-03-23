@@ -73,3 +73,41 @@ void QueueLstPr::Push(const float& value) {
   }
   New = nullptr;
 }
+
+QueueLstPr& QueueLstPr::operator=(const QueueLstPr& rhs) {
+  if (this != &rhs) {
+    if (rhs.IsEmpty()) {
+      this->Clear();
+    }
+    else {
+      Node* ptr = rhs.head_;
+      Node* curr = head_;
+
+      while (curr != nullptr && ptr!=nullptr) {
+        curr->data_ = ptr->data_;
+        curr = curr->next_;
+        ptr = ptr->next_;
+      }
+
+      if (curr == nullptr) {
+        while (ptr != nullptr) {
+          Node* New = new Node;
+          New->data_ = ptr->data_;
+          curr->next_ = New;
+          curr = New;
+          New = nullptr;
+        }
+      }
+      else {
+        while (curr != nullptr) {
+          Node* tmp = curr->next_;
+          delete curr;
+          curr = tmp;
+        }
+      }
+      curr = nullptr;
+    }
+  }
+  return *this;
+}
+
