@@ -1,5 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
+#include <iostream>
+#include <chrono>
 #include <stackarr/stackarr.hpp>
 
 TEST_CASE("stackarr test") {
@@ -74,3 +76,50 @@ TEST_CASE("copy ctor") {
   CHECK_EQ(b.Top(), first_complex);
 }
 
+TEST_CASE("move semantics") {
+  StackArr a;
+
+  Complex first_num = 0;
+  Complex second_num = 1.5;
+  Complex third_num = 3.0;
+
+  for (int i = 0; i < 100; ++i) {
+    a.Push(first_num);
+    a.Push(second_num);
+    a.Push(third_num);
+  }
+  StackArr b;
+  b.Push(first_num);
+  b.Push(second_num);
+  b.Push(third_num);
+  StackArr c(a);
+  StackArr d(a);
+
+  auto start1 = std::chrono::high_resolution_clock::now();
+  b = std::move(a);
+  auto end1 = std::chrono::high_resolution_clock::now();
+
+  auto res1 = std::chrono::duration<float>{ end1 - start1 };
+
+  std::cout << res1 << '\n';
+
+  while (!c.IsEmpty()) {
+    CHECK_EQ(c.Top(), b.Top());
+    c.Pop();
+    b.Pop();
+  }
+
+  auto start2 = std::chrono::high_resolution_clock::now();
+  a = d;
+  auto end2 = std::chrono::high_resolution_clock::now();
+
+  auto res2 = std::chrono::duration<float>{ end2 - start2 };
+
+  std::cout << res2;
+
+  while (!d.IsEmpty()) {
+    CHECK_EQ(a.Top(), d.Top());
+    d.Pop();
+    a.Pop();
+  }
+}
