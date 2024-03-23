@@ -31,7 +31,7 @@ DynArr::DynArr(DynArr&& rhs) noexcept
 }
 DynArr::~DynArr() { delete[] data_; }
 
-DynArr& DynArr::operator=(DynArr&& rhs) {
+DynArr& DynArr::operator=(DynArr&& rhs) noexcept{
   if (this != &rhs) {
     std::swap(size_, rhs.size_);
     std::swap(capacity_, rhs.capacity_);
