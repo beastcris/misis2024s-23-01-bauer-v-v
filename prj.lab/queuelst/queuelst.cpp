@@ -75,7 +75,7 @@ QueueLst::QueueLst(const QueueLst& rhs) {
   last = nullptr;
 }
 
-QueueLst::QueueLst(QueueLst&& rhs)
+QueueLst::QueueLst(QueueLst&& rhs) noexcept
   :head_(rhs.head_)
   , tail_(rhs.tail_) {
   rhs.tail_ = nullptr;
@@ -125,7 +125,7 @@ QueueLst& QueueLst::operator=(const QueueLst& rhs) {
   return *this;
 }
 
-QueueLst& QueueLst::operator=(QueueLst&& rhs) {
+QueueLst& QueueLst::operator=(QueueLst&& rhs) noexcept{
   if (this != &rhs) {
     std::swap(tail_, rhs.tail_);
     std::swap(head_, rhs.head_);
