@@ -14,10 +14,7 @@ enum A {
 
 int main() {
   
-  int v = 5;
-  for (int i = 0; i < 10; ++i) {
-    int&& tmp = v + 5;
-
-    std::cout << i << ' ' << tmp << '\n';
-  }
+  std::vector<int> a = { 1,1,1 };
+  std::vector<int> b = { 2,1 };
+  std::cout << (a == b);
 }
