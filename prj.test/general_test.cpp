@@ -16,5 +16,9 @@ int main() {
   
   std::vector<int> a = { 1,1,1 };
   std::vector<int> b = { 2,1 };
-  std::cout << (a == b);
+  std::cout << (a == b) << '\n';
+
+  int32_t i = 2000000000;
+            /*4294967295*/
+  std::cout << i;
 }
