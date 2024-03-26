@@ -50,3 +50,22 @@ TEST_CASE("Based") {
   CHECK_THROWS(a.Resize(0));
   CHECK_THROWS(a.Resize(-1));
 }
+
+TEST_CASE("operator[]") {
+  BitSet a(20);
+  a[1] = 1;
+  CHECK_EQ(1, a.Get(1));
+
+  BitSet b(10);
+  b.Set(1, 1);
+
+  CHECK((a[1]==b[1]));
+
+  if (a[1]==1) {
+    a[2] = 1;
+  }
+  CHECK((a[2]==1));
+
+  a[2]=b[3];
+  CHECK((a[2] == 0));
+}
