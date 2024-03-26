@@ -2,7 +2,6 @@
 #include <iostream>
 #include <algorithm>
 
-
 int32_t BitSet::Size() const noexcept{
   return size_;
 }
@@ -98,6 +97,10 @@ bool BitSet::operator==(const BitSet& rhs) {
 
 bool BitSet::operator!=(const BitSet& rhs) {
   return !operator==(rhs);
+}
+
+BitSet::BiA BitSet::operator[](const int32_t idx) {
+  return {*this, idx};
 }
 
 void BitSet::Arr() {
