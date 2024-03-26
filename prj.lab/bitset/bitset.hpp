@@ -5,24 +5,25 @@
 #include <cstdint>
 #include <vector>
 
-const int32_t CEIL_NUM = 4294967296;
+const uint32_t CEIL_NUM = 4294967295;
+const uint32_t FLOOR_NUM = 0;
 
 class BitSet {
 
 public:
   BitSet() = default;
   BitSet(const int32_t cnt);
-  BitSet(const BitSet& rhs);
+  BitSet(const BitSet& rhs) = default;
   BitSet(BitSet&& rhs) noexcept;
-  BitSet& operator=(const BitSet& rhs);
+  BitSet& operator=(const BitSet& rhs) = default;
   BitSet& operator=(BitSet&& rhs) noexcept;
   ~BitSet() = default;
 
-  int32_t Size() const noexcept;
+  [[nodiscard]] int32_t Size() const noexcept;
   void Resize(const int32_t size);
   
   void Set(const int32_t idx, const bool value);
-  bool Get(const int32_t idx);
+  [[nodiscard]] bool Get(const int32_t idx);
 
   BitSet& operator&=(const BitSet& rhs);
   BitSet& operator|=(const BitSet& rhs);
@@ -39,5 +40,11 @@ private:
   std::vector<uint32_t> bits_;
   int32_t size_ = 0;
 };
+
+[[nodiscard]] BitSet operator&(const BitSet& lhs, const BitSet& rhs);
+
+[[nodiscard]] BitSet operator|(const BitSet& lhs, const BitSet& rhs);
+
+[[nodiscard]] BitSet operator^(const BitSet& lhs, const BitSet& rhs);
 
 #endif // !BITSET_HPP
