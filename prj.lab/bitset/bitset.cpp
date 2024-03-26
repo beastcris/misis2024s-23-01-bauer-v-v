@@ -8,6 +8,9 @@ int32_t BitSet::Size() const noexcept{
 }
 
 BitSet::BitSet(const int32_t cnt):size_(cnt) {
+  if (cnt <= 0) {
+    throw std::logic_error("Size cannot be negative");
+  }
   bits_.insert(bits_.begin(), (cnt - 1) / 32 + 1, 0);
 }
 
@@ -24,16 +27,27 @@ BitSet& BitSet::operator=(BitSet&& rhs) noexcept {
 }
 
 void BitSet::Resize(const int32_t size) {
+  if (size <= 0) {
+    throw std::logic_error("Size cannot be negative");
+  }
+
   if (size > size_) {
     bits_.insert(bits_.end(), (size - 1) / 32 + 1 - size_, 0);
   }
   else {
     bits_.erase(bits_.begin() + (size - 1) / 32 + 1, bits_.end());
   }
+  for (int32_t i = size_; i < size; ++i) {
+    this->Set(i, 0);
+  }
   size_ = size;
 }
 
 void BitSet::Set(const int32_t idx, const bool value) {
+  if (idx < 0 || idx > size_) {
+    throw std::out_of_range("Index Out of Range");
+  }
+
   if (this->Get(idx) != value) {
     int32_t pos = idx / 32;
     if (value) {
@@ -46,9 +60,13 @@ void BitSet::Set(const int32_t idx, const bool value) {
 }
 
 bool BitSet::Get(const int32_t idx) {
+  if (idx < 0 || idx > size_) {
+    throw std::out_of_range("Index Out of Range");
+  }
+
   int32_t pos = idx / 32;
   int32_t pow = idx % 32;
-  int32_t num = bits_[pos];
+  uint32_t num = bits_[pos];
 
   while (pow != 0) {
     --pow;
@@ -62,8 +80,16 @@ void BitSet::Fill(const bool value) {
     std::fill(bits_.begin(), bits_.end(), CEIL_NUM);
   }
   else {
-    std::fill(bits_.begin(), bits_.end(), 0);
+    std::fill(bits_.begin(), bits_.end(), FLOOR_NUM);
   }
+  int32_t tmp_size = (size_ / 32 + 1) * 32;
+  int32_t old_size = size_;
+  size_ = tmp_size;
+
+  for (int32_t i = old_size; i < size_; ++i) {
+    this->Set(i, 0);
+  }
+  size_ = old_size;
 }
 
 bool BitSet::operator==(const BitSet& rhs) {
@@ -73,6 +99,7 @@ bool BitSet::operator==(const BitSet& rhs) {
 bool BitSet::operator!=(const BitSet& rhs) {
   return !operator==(rhs);
 }
+
 void BitSet::Arr() {
   for (int32_t i = 0; i < bits_.size(); ++i) {
     std::cout << bits_[i] << std::endl;
