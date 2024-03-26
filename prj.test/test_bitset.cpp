@@ -41,4 +41,12 @@ TEST_CASE("Based") {
   for (int32_t i = 0; i < d.Size(); ++i) {
     CHECK_EQ(0, d.Get(i));
   }
+
+  int32_t Size = a.Size() + 10;
+  CHECK_THROWS(a.Get(-5));
+  CHECK_THROWS(a.Get(Size));
+  CHECK_THROWS(a.Set(-5, 1));
+  CHECK_THROWS(a.Set(Size, 1));
+  CHECK_THROWS(a.Resize(0));
+  CHECK_THROWS(a.Resize(-1));
 }
