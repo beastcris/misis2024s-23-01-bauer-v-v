@@ -4,7 +4,7 @@
 
 int main() {
   
-  cv::Mat img = cv::imread("C:/Users/Huawei/Desktop/data2.png");
+  cv::Mat img = cv::imread("D:/Desktop/data2.png");
 
 
   if (img.empty()) {
