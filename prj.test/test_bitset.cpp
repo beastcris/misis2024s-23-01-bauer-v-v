@@ -12,10 +12,10 @@ TEST_CASE("Based") {
 
   std::vector<int32_t> idxes = { 0, 7, 17, 31 };
   for (int32_t i = 0; i < idxes.size(); ++i) {
-    a.Set(i, 1);
+    a.Set(idxes[i], 1);
   }
   for (int32_t i = 0; i < idxes.size(); ++i) {
-    CHECK_EQ(1, a.Get(i));
+    CHECK_EQ(1, a.Get(idxes[i]));
   }
 
   BitSet b(17);
@@ -28,5 +28,17 @@ TEST_CASE("Based") {
   CHECK(b == d);
   d.Set(13, 0);
   CHECK(!(b == d));
+  d.Set(13, 1);
+  d.Set(13, 1);
+  CHECK(b == d);
 
+
+  d.Fill(1);
+  for (int32_t i = 0; i < d.Size(); ++i) {
+    CHECK_EQ(1, d.Get(i));
+  }
+  d.Fill(0);
+  for (int32_t i = 0; i < d.Size(); ++i) {
+    CHECK_EQ(0, d.Get(i));
+  }
 }
