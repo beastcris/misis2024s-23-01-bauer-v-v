@@ -53,7 +53,7 @@ public:
   BitSet& operator&=(const BitSet& rhs);
   BitSet& operator|=(const BitSet& rhs);
   BitSet& operator^=(const BitSet& rhs);
-  BitSet& operator~ ();
+  BitSet& operator~();
   
   BiA operator[](const int32_t idx);
 
@@ -67,7 +67,6 @@ private:
   std::vector<uint32_t> bits_;
   int32_t size_ = 0;
 };
-
 
 [[nodiscard]] BitSet operator&(const BitSet& lhs, const BitSet& rhs);
 [[nodiscard]] BitSet operator|(const BitSet& lhs, const BitSet& rhs);
