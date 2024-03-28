@@ -4,6 +4,7 @@
 #include <iosfwd>
 #include <cstdint>
 #include <vector>
+#include <stdexcept>
 
 const uint32_t CEIL_NUM = 4294967295;
 const uint32_t FLOOR_NUM = 0;
@@ -68,10 +69,31 @@ private:
 };
 
 
-[[nodiscard]] BitSet operator&(const BitSet& lhs, const BitSet& rhs);
+[[nodiscard]] BitSet operator&(const BitSet& lhs, const BitSet& rhs) {
+  if (lhs.Size() != rhs.Size()) {
+    throw std::logic_error("Different Sizes");
+  }
 
-[[nodiscard]] BitSet operator|(const BitSet& lhs, const BitSet& rhs);
+  BitSet tmp(lhs);
+  return tmp &= (rhs);
+};
 
-[[nodiscard]] BitSet operator^(const BitSet& lhs, const BitSet& rhs);
+[[nodiscard]] BitSet operator|(const BitSet& lhs, const BitSet& rhs) {
+  if (lhs.Size() != rhs.Size()) {
+    throw std::logic_error("Different Sizes");
+  }
+
+  BitSet tmp(lhs);
+  return tmp |= (rhs);
+};
+
+[[nodiscard]] BitSet operator^(const BitSet& lhs, const BitSet& rhs) {
+  if (lhs.Size() != rhs.Size()) {
+    throw std::logic_error("Different Sizes");
+  }
+
+  BitSet tmp(lhs);
+  return tmp ^= (rhs);
+};
 
 #endif // !BITSET_HPP
