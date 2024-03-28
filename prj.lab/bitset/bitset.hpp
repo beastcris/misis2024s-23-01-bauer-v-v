@@ -1,3 +1,5 @@
+
+
 #ifndef BITSET_HPP
 #define BITSET_HPP
 
@@ -8,8 +10,6 @@
 
 const uint32_t CEIL_NUM = 4294967295;
 const uint32_t FLOOR_NUM = 0;
-
-struct BiA;
 
 class BitSet {
 
@@ -30,7 +30,7 @@ public:
       }
       bool operator==(BiA rhs) {return (rhs.bst_.Get(rhs.idx_) == this->bst_.Get(this->idx_)); }
       bool operator==(bool value) { return (value == this->bst_.Get(this->idx_)); }
-
+  private:
       int32_t idx_ = 0;
       BitSet& bst_;
   };
@@ -69,31 +69,7 @@ private:
 };
 
 
-[[nodiscard]] BitSet operator&(const BitSet& lhs, const BitSet& rhs) {
-  if (lhs.Size() != rhs.Size()) {
-    throw std::logic_error("Different Sizes");
-  }
-
-  BitSet tmp(lhs);
-  return tmp &= (rhs);
-};
-
-[[nodiscard]] BitSet operator|(const BitSet& lhs, const BitSet& rhs) {
-  if (lhs.Size() != rhs.Size()) {
-    throw std::logic_error("Different Sizes");
-  }
-
-  BitSet tmp(lhs);
-  return tmp |= (rhs);
-};
-
-[[nodiscard]] BitSet operator^(const BitSet& lhs, const BitSet& rhs) {
-  if (lhs.Size() != rhs.Size()) {
-    throw std::logic_error("Different Sizes");
-  }
-
-  BitSet tmp(lhs);
-  return tmp ^= (rhs);
-};
-
+[[nodiscard]] BitSet operator&(const BitSet& lhs, const BitSet& rhs);
+[[nodiscard]] BitSet operator|(const BitSet& lhs, const BitSet& rhs);
+[[nodiscard]] BitSet operator^(const BitSet& lhs, const BitSet& rhs);
 #endif // !BITSET_HPP

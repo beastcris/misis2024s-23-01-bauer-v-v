@@ -47,7 +47,7 @@ void BitSet::Set(const int32_t idx, const bool value) {
     throw std::out_of_range("Index Out of Range");
   }
 
-  if (this->Get(idx) != value) {
+  if (this->Get(idx) != value) {   
     int32_t pos = idx / 32;
     if (value) {
       bits_[pos] += (1 << (idx % 32));
@@ -110,6 +110,8 @@ BitSet& BitSet::operator&=(const BitSet& rhs) {
   for (int32_t i = 0; i < bits_.size(); ++i) {
     bits_[i] &= rhs.bits_[i];
   }
+
+  return *this;
 }
 
 BitSet& BitSet::operator|=(const BitSet& rhs) {
@@ -119,6 +121,8 @@ BitSet& BitSet::operator|=(const BitSet& rhs) {
   for (int32_t i = 0; i < bits_.size(); ++i) {
     bits_[i] |= rhs.bits_[i];
   }
+
+  return *this;
 }
 
 BitSet& BitSet::operator^=(const BitSet& rhs) {
@@ -128,13 +132,44 @@ BitSet& BitSet::operator^=(const BitSet& rhs) {
   for (int32_t i = 0; i < bits_.size(); ++i) {
     bits_[i] ^= rhs.bits_[i];
   }
+
+  return *this;
 }
 
 BitSet& BitSet::operator~() {
   for (int32_t i = 0; i < bits_.size(); ++i) {
     bits_[i] = ~bits_[i];
   }
+
+  return *this;
 }
+
+[[nodiscard]] BitSet operator&(const BitSet& lhs, const BitSet& rhs) {
+  if (lhs.Size() != rhs.Size()) {
+    throw std::logic_error("Different Sizes");
+  }
+
+  BitSet tmp(lhs);
+  return tmp &= (rhs);
+};
+
+[[nodiscard]] BitSet operator|(const BitSet& lhs, const BitSet& rhs) {
+  if (lhs.Size() != rhs.Size()) {
+    throw std::logic_error("Different Sizes");
+  }
+
+  BitSet tmp(lhs);
+  return tmp |= (rhs);
+};
+
+[[nodiscard]] BitSet operator^(const BitSet& lhs, const BitSet& rhs) {
+  if (lhs.Size() != rhs.Size()) {
+    throw std::logic_error("Different Sizes");
+  }
+
+  BitSet tmp(lhs);
+  return tmp ^= (rhs);
+};
 
 void BitSet::Arr() {
   for (int32_t i = 0; i < bits_.size(); ++i) {
