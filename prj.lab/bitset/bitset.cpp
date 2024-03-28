@@ -103,6 +103,39 @@ BitSet::BiA BitSet::operator[](const int32_t idx) {
   return {*this, idx};
 }
 
+BitSet& BitSet::operator&=(const BitSet& rhs) {
+  if (this->size_ != rhs.size_) {
+    throw std::logic_error("Different Sizes");
+  }
+  for (int32_t i = 0; i < bits_.size(); ++i) {
+    bits_[i] &= rhs.bits_[i];
+  }
+}
+
+BitSet& BitSet::operator|=(const BitSet& rhs) {
+  if (this->size_ != rhs.size_) {
+    throw std::logic_error("Different Sizes");
+  }
+  for (int32_t i = 0; i < bits_.size(); ++i) {
+    bits_[i] |= rhs.bits_[i];
+  }
+}
+
+BitSet& BitSet::operator^=(const BitSet& rhs) {
+  if (this->size_ != rhs.size_) {
+    throw std::logic_error("Different Sizes");
+  }
+  for (int32_t i = 0; i < bits_.size(); ++i) {
+    bits_[i] ^= rhs.bits_[i];
+  }
+}
+
+BitSet& BitSet::operator~() {
+  for (int32_t i = 0; i < bits_.size(); ++i) {
+    bits_[i] = ~bits_[i];
+  }
+}
+
 void BitSet::Arr() {
   for (int32_t i = 0; i < bits_.size(); ++i) {
     std::cout << bits_[i] << std::endl;
