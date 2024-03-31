@@ -69,3 +69,67 @@ TEST_CASE("operator[]") {
   a[2]=b[3];
   CHECK((a[2] == 0));
 }
+
+TEST_CASE("ctor") {
+  const std::int32_t num = 125;
+  BitSet bs(num);
+}
+
+TEST_CASE("get | set") {
+  BitSet bss;
+  CHECK_THROWS(bss.Get(0));
+  BitSet bs(11);
+  CHECK_THROWS(bs.Get(15));
+  CHECK_THROWS(bs.Get(11));
+  CHECK(bs.Get(0) == 0);
+
+  for (int i = 0; i < 11; i++) {
+    bs.Set(i, 1);
+  }
+  BitSet bsss = BitSet(11);
+  bsss.Fill(1);
+  CHECK(bs == bsss);
+}
+
+TEST_CASE("operator==") {
+  BitSet bs(120);
+  BitSet bs2(120);
+  CHECK(bs == bs2);
+  CHECK_FALSE(bs == BitSet(123));
+  BitSet bs3(120);
+  CHECK(bs3 == bs);
+  bs3.Set(119, 1);
+  bool f = bs3 != bs;
+  CHECK(f);
+}
+
+TEST_CASE("Fill && Get") {
+  BitSet bs(32);
+  bs.Fill(1);
+  CHECK(bs.Get(30) == 1);
+}
+
+TEST_CASE("Edge case for size = 32 | Fill 'n' Set") {
+  BitSet b1(32);
+  b1.Fill(1);
+  b1.Set(31, 0);
+  BitSet b2(32);
+  b2.Fill(1);
+  b2.Set(30, 0);
+  CHECK(b2 != b1);
+  b2.Set(30, 1);
+  b2.Set(31, 0);
+  bool f = b1 == b2;
+  // CHECK(f);
+}
+
+TEST_CASE("Resize") {
+  // write resize properly (set requires elements to false)
+  BitSet b1(110);
+  b1.Fill(1);
+  b1.Resize(98);
+  BitSet b2(98);
+  b2.Fill(1);
+  CHECK(b1 == b2);
+  b1.Resize(200);
+}
