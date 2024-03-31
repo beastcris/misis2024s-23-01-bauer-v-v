@@ -31,19 +31,21 @@ void BitSet::Resize(const int32_t size) {
   }
 
   if (size > size_) {
-    bits_.insert(bits_.end(), (size - 1) / 32 + 1 - size_, 0);
+    bits_.insert(bits_.end(), (size - 1) / 32 + 1 - ((size_ - 1) / 32 + 1), 0);
   }
   else {
     bits_.erase(bits_.begin() + (size - 1) / 32 + 1, bits_.end());
   }
-  for (int32_t i = size_; i < size; ++i) {
+
+  int32_t old_size = size_;
+  for (int32_t i = size; i < old_size; ++i) {
     this->Set(i, 0);
   }
   size_ = size;
 }
 
 void BitSet::Set(const int32_t idx, const bool value) {
-  if (idx < 0 || idx > size_) {
+  if (idx < 0 || idx >= size_) {
     throw std::out_of_range("Index Out of Range");
   }
 
@@ -59,7 +61,7 @@ void BitSet::Set(const int32_t idx, const bool value) {
 }
 
 bool BitSet::Get(const int32_t idx) {
-  if (idx < 0 || idx > size_) {
+  if (idx < 0 || idx >= size_) {
     throw std::out_of_range("Index Out of Range");
   }
 
@@ -77,18 +79,13 @@ bool BitSet::Get(const int32_t idx) {
 void BitSet::Fill(const bool value) {
   if (value) {
     std::fill(bits_.begin(), bits_.end(), CEIL_NUM);
+    if (size_ % 32 != 0) {
+      bits_[bits_.size() - 1] = (1 << (size_ % 32)) - 1;
+    }
   }
   else {
-    std::fill(bits_.begin(), bits_.end(), FLOOR_NUM);
+    std::fill(bits_.begin(), bits_.end() , FLOOR_NUM);
   }
-  int32_t tmp_size = (size_ / 32 + 1) * 32;
-  int32_t old_size = size_;
-  size_ = tmp_size;
-
-  for (int32_t i = old_size; i < size_; ++i) {
-    this->Set(i, 0);
-  }
-  size_ = old_size;
 }
 
 bool BitSet::operator==(const BitSet& rhs) {
