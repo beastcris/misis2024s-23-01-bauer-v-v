@@ -29,7 +29,10 @@ public:
         return *this;
       }
       bool operator==(BiA rhs) {return (rhs.bst_.Get(rhs.idx_) == this->bst_.Get(this->idx_)); }
-      bool operator==(bool value) { return (value == this->bst_.Get(this->idx_)); }
+
+      operator bool() const noexcept {
+        return bst_.Get(idx_);
+      };
   private:
       int32_t idx_ = 0;
       BitSet& bst_;
