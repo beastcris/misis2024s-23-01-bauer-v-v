@@ -1,5 +1,4 @@
-CHECK: 20240402-141521
-OK: file codeforces.id is correct
+CHECK: 20240406-021444
 STATUS: lab complex - test-ok
 STATUS: lab complex_io - test-ok
 STATUS: lab complex_m - test-ok
@@ -13,7 +12,7 @@ STATUS: lab stackarr_m - test-ok
 STATUS: lab stacklst - test-ok
 STATUS: lab stacklst_m - test-ok
 STATUS: lab queuearr - test-failed
-STATUS: lab queuearr_m - test-failed
+STATUS: lab queuearr_m - test-ok
 STATUS: lab queuelst - test-ok
 STATUS: lab queuelst_m - test-ok
 STATUS: lab queuelstpr - test-failed
