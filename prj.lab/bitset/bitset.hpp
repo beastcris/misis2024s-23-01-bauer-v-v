@@ -71,6 +71,10 @@ private:
   int32_t size_ = 0;
 };
 
+std::ostream& operator<<(std::ostream& os, BitSet& rhs) noexcept;
+std::istream& operator>>(std::istream& is, BitSet& rhs) noexcept;
+
+
 [[nodiscard]] BitSet operator&(const BitSet& lhs, const BitSet& rhs);
 [[nodiscard]] BitSet operator|(const BitSet& lhs, const BitSet& rhs);
 [[nodiscard]] BitSet operator^(const BitSet& lhs, const BitSet& rhs);

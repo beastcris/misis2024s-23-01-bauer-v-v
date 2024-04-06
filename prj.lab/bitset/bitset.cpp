@@ -1,6 +1,7 @@
 #include <bitset/bitset.hpp>
 #include <iostream>
 #include <algorithm>
+#include <string>
 
 int32_t BitSet::Size() const noexcept{
   return size_;
@@ -167,6 +168,33 @@ BitSet& BitSet::operator~() {
   BitSet tmp(lhs);
   return tmp ^= (rhs);
 };
+
+
+std::ostream& operator<<(std::ostream& os, BitSet& rhs) noexcept {
+  int32_t str_num = 1;
+  int32_t vec_idx = (rhs.Size() - 1) / 32;
+  while (vec_idx >= 0) {
+    int32_t i = vec_idx * 32;
+    for (int32_t idx = i; idx < i + 32; ++idx) {
+      if (idx >= rhs.Size()) {
+        break;
+      }
+      os << rhs[idx];
+      if ((idx + 1) % 16 == 0) {
+        os << '|' << str_num << std::endl;
+        ++str_num;
+      } else if ((idx + 1) % 4 == 0) {
+        os << ' ';
+      }
+    }
+    --vec_idx;
+  }
+  return os;
+}
+
+std::istream& operator>>(std::istream& is, BitSet& rhs) noexcept {
+  return is;
+}
 
 void BitSet::Arr() {
   for (int32_t i = 0; i < bits_.size(); ++i) {
