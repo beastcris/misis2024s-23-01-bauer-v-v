@@ -59,15 +59,27 @@ TEST_CASE("operator[]") {
   BitSet b(10);
   b.Set(1, 1);
 
-  CHECK((a[1]==b[1]));
+  CHECK_EQ(a[1], b[1]);
 
-  if (a[1]==1) {
-    a[2] = 1;
+  if (a[1] == 1) {
+    a[2] = true;
   }
   CHECK((a[2]==1));
 
   a[2]=b[3];
   CHECK((a[2] == 0));
+
+  bool flag = a[2];
+  CHECK_EQ(flag, 0);
+
+  a.Fill(0);
+  a[5] = 1;
+  int32_t i = 0;
+  while (a[i]!=1)
+  {
+    CHECK( !a[i] );
+    ++i;
+  }
 }
 
 TEST_CASE("ctor") {
@@ -132,4 +144,13 @@ TEST_CASE("Resize") {
   b2.Fill(1);
   CHECK(b1 == b2);
   b1.Resize(200);
+}
+
+TEST_CASE("Output") {
+  BitSet a(95);
+
+  a[0] = 1;
+  a[4] = 1;
+  a[11] = 1;
+  std::cout << a;
 }
