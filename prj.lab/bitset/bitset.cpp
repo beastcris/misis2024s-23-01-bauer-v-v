@@ -61,7 +61,7 @@ void BitSet::Set(const int32_t idx, const bool value) {
   }
 }
 
-bool BitSet::Get(const int32_t idx) {
+bool BitSet::Get(const int32_t idx) const {
   if (idx < 0 || idx >= size_) {
     throw std::out_of_range("Index Out of Range");
   }
@@ -169,35 +169,67 @@ BitSet& BitSet::operator~() {
   return tmp ^= (rhs);
 };
 
+const bool BitSet::operator[](const int32_t idx) const {
+  return this->Get(idx);
+};
 
-std::ostream& operator<<(std::ostream& os, BitSet& rhs) noexcept {
+std::ostream& operator<<(std::ostream& os,const BitSet& rhs) noexcept {
   int32_t str_num = 1;
-  int32_t vec_idx = (rhs.Size() - 1) / 32;
-  while (vec_idx >= 0) {
+  int32_t vec_idx = 0;
+  while (vec_idx < (rhs.Size() - 1)/32 + 1) {
     int32_t i = vec_idx * 32;
     for (int32_t idx = i; idx < i + 32; ++idx) {
       if (idx >= rhs.Size()) {
+        vec_idx = (rhs.Size() - 1) / 32 + 1;
         break;
       }
       os << rhs[idx];
       if ((idx + 1) % 16 == 0) {
-        os << '|' << str_num << std::endl;
+        os << " |" << str_num << std::endl;
         ++str_num;
       } else if ((idx + 1) % 4 == 0) {
         os << ' ';
       }
     }
-    --vec_idx;
-  }
+    ++vec_idx;
+  } 
+  os << std::endl << "====================" << std::endl;
   return os;
 }
 
 std::istream& operator>>(std::istream& is, BitSet& rhs) noexcept {
-  return is;
-}
+  std::string input = " ";
+  int32_t idx = 0;
+  while (idx < rhs.Size()) {
+    std::string first_four = "";
+    std::string second_four = "";
+    std::string third_four = "";
+    std::string fourth_four = "";
 
-void BitSet::Arr() {
-  for (int32_t i = 0; i < bits_.size(); ++i) {
-    std::cout << bits_[i] << std::endl;
+    is >> first_four >> second_four >> third_four >> fourth_four;
+    if (is.good()) {
+      std::vector<std::string> bits{ first_four, second_four, third_four, fourth_four };
+      if (first_four.length() % 4 == 0 && second_four.length() % 4 == 0 && third_four.length() % 4 == 0 && fourth_four.length() % 4 == 0) {
+        for (auto elem : bits) {
+          for (int32_t i = 0; i < elem.length(); ++i) {
+            if (elem[i] == '0') {
+              rhs[idx] = 0;
+            }
+            else {
+              rhs[idx] = 1;
+            }
+            ++idx;
+            if (idx >= rhs.Size()) {
+              break;
+            }
+          }
+        }
+      }
+    }            
+    else {
+      is.setstate(std::ios_base::failbit);
+    }
   }
+  
+  return is;
 }

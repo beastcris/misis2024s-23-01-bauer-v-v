@@ -51,7 +51,7 @@ public:
   void Resize(const int32_t size);
   
   void Set(const int32_t idx, const bool value);
-  [[nodiscard]] bool Get(const int32_t idx);
+  [[nodiscard]] bool Get(const int32_t idx) const;
 
   BitSet& operator&=(const BitSet& rhs);
   BitSet& operator|=(const BitSet& rhs);
@@ -59,11 +59,11 @@ public:
   BitSet& operator~();
   
   BiA operator[](const int32_t idx);
+  const bool operator[](const int32_t idx) const;
 
   bool operator==(const BitSet& rhs);
   bool operator!=(const BitSet& rhs);
   
-  void Arr();
   void Fill(const bool value);
 
 private:
@@ -71,7 +71,7 @@ private:
   int32_t size_ = 0;
 };
 
-std::ostream& operator<<(std::ostream& os, BitSet& rhs) noexcept;
+std::ostream& operator<<(std::ostream& os, const BitSet& rhs) noexcept;
 std::istream& operator>>(std::istream& is, BitSet& rhs) noexcept;
 
 
