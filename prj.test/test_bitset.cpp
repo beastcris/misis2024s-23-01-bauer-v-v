@@ -147,10 +147,30 @@ TEST_CASE("Resize") {
 }
 
 TEST_CASE("Output") {
-  BitSet a(95);
+  BitSet a(39);
 
   a[0] = 1;
   a[4] = 1;
   a[11] = 1;
+  std::cout << a;
+
+  a[35] = 1;
+  a[19] = 1;
+  std::cout << a;
+
+  BitSet b(7528);
+
+  for (int32_t i = 0; i < b.Size(); ++i) {
+    if (i % 3 == 0) {
+      b[i] = 1;
+    }
+  }
+
+  std::cout << b;
+}
+
+TEST_CASE("Input") {
+  BitSet a(13);
+  std::cin >> a;
   std::cout << a;
 }
