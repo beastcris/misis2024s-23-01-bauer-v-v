@@ -81,8 +81,6 @@ TEST_CASE("operator[]") {
   int32_t tm = 189;
   a[1] = tm;
   CHECK_EQ(a[1], 1);
-
-
 }
 
 TEST_CASE("ctor") {
