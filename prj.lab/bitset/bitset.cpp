@@ -207,9 +207,9 @@ std::istream& operator>>(std::istream& is, BitSet& rhs) noexcept {
     std::string fourth_four = "";
 
     is >> first_four >> second_four >> third_four >> fourth_four;
-    if (is.good()) {
+    if (is.good() || is.eof()) {
       std::vector<std::string> bits{ first_four, second_four, third_four, fourth_four };
-      if (first_four.length() % 4 == 0 && second_four.length() % 4 == 0 && third_four.length() % 4 == 0 && fourth_four.length() % 4 == 0) {
+      if (first_four.length() == 4 && second_four.length() == 4 && third_four.length() == 4 && fourth_four.length() == 4) {
         for (auto elem : bits) {
           for (int32_t i = 0; i < elem.length(); ++i) {
             if (elem[i] == '0') {
@@ -225,10 +225,35 @@ std::istream& operator>>(std::istream& is, BitSet& rhs) noexcept {
           }
         }
       }
+      else {
+        bool flag = false;
+        for (int32_t i = 0; i < 4; ++i) {
+          if (flag && bits[i].length() != 0) {
+            is.setstate(std::ios::failbit);
+          }
+          else if (!flag) {
+            if (bits[i].length() != 4) {
+              flag = true;
+            } 
+            for (int32_t j = 0; j < bits[i].length();  ++j) {
+              if (bits[i][j] == '0') {
+                rhs[idx] = 0;
+              }
+              else {
+                rhs[idx] = 1;
+              }
+              ++idx;
+              if (idx >= rhs.Size()) {
+                break;
+              }
+            }
+          }
+          if (idx >= rhs.Size()) {
+            break;
+          }
+        }
+      }
     }            
-    else {
-      is.setstate(std::ios_base::failbit);
-    }
   }
   
   return is;
