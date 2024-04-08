@@ -88,6 +88,9 @@ QueueLstPr& QueueLstPr::operator=(const QueueLstPr& rhs) {
       this->Clear();
     }
     else {
+      if (this->IsEmpty()) {
+        this->Push(0);
+      }
       Node* ptr = rhs.head_;
       Node* curr = head_;
       Node* last = nullptr;
