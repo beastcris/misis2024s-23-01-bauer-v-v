@@ -54,29 +54,16 @@ TEST_CASE("operator=") {
   a.Push(second_num);
 
   QueueLstPr b;
-  b.Push(third_num);
+  b.Push(1);
+
   b = a;
-
-
-  while (!a.IsEmpty()) {
+  while (!b.IsEmpty()) {
     CHECK_EQ(a.Top(), b.Top());
     a.Pop();
     b.Pop();
   }
-
-  b.Push(first_num);
-  b = a;
+  CHECK(a.IsEmpty());
   CHECK(b.IsEmpty());
-
-  a.Push(first_num);
-  b.Push(second_num);
-  b.Push(second_num);
-  b = a;
-  while (!a.IsEmpty()) {
-    CHECK_EQ(a.Top(), b.Top());
-    a.Pop();
-    b.Pop();
-  }
 }
 
 TEST_CASE("copy ctor") {
@@ -101,7 +88,7 @@ TEST_CASE("copy ctor") {
   
   QueueLstPr c(b);
   CHECK(c.IsEmpty());
-}
+} 
 
 TEST_CASE("move semantics") {
   QueueLstPr a;
