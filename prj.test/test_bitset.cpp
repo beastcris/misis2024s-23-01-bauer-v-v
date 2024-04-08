@@ -56,30 +56,33 @@ TEST_CASE("operator[]") {
   a[1] = 1;
   CHECK_EQ(1, a.Get(1));
 
-  BitSet b(10);
-  b.Set(1, 1);
+  CHECK_EQ(1, a[1]);
+  if (a[1]) {
+    a[1] = 0;
+  }
+  CHECK(!a[1]);
+  while (!a[1]) {
+    a[1] = 1;
+  }
 
-  CHECK_EQ(a[1], b[1]);
+  bool fl1 = a[1];
+  bool fl2;
+  CHECK(fl1);
+  fl1 = fl2 = a[1];
+  CHECK_EQ(fl1, fl2);
+  CHECK_EQ(fl2, a[1]);
 
   if (a[1] == 1) {
-    a[2] = true;
+    CHECK(a[1] == 1);
+    a[1] = 0;
   }
-  CHECK((a[2]==1));
+  CHECK(!a[1]);
 
-  a[2]=b[3];
-  CHECK((a[2] == 0));
+  int32_t tm = 189;
+  a[1] = tm;
+  CHECK_EQ(a[1], 1);
 
-  bool flag = a[2];
-  CHECK_EQ(flag, 0);
 
-  a.Fill(0);
-  a[5] = 1;
-  int32_t i = 0;
-  while (a[i]!=1)
-  {
-    CHECK( !a[i] );
-    ++i;
-  }
 }
 
 TEST_CASE("ctor") {
@@ -170,7 +173,7 @@ TEST_CASE("Output") {
 }
 
 TEST_CASE("Input") {
-  BitSet a(13);
+  BitSet a(17);
   std::cin >> a;
   std::cout << a;
 }
