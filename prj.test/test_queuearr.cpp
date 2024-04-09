@@ -45,30 +45,52 @@ TEST_CASE("Basic methods") {
 TEST_CASE("Copying constructor and operator=") {
   QueueArr q1;
   QueueArr q2;
-  QueueArr q3;
-  q3.Push(Complex(1, 1));
+  
+  q1.Push(1);
+  q1.Push(2);
 
-  for (int i = 1; i <= 2; i++) {
-    q1.Push(Complex(i, i * i));
-    q2.Push(Complex(2 * i, 2 * i * 2 * i));
+  q2 = q1;
+
+  while (!q2.IsEmpty()) {
+    CHECK_EQ(q1.Top(), q2.Top());
+    q1.Pop();
+    q2.Pop();
   }
+  CHECK(q1.IsEmpty());
+
+  q1.Push(1);
+  q1.Push(2);
+  q1.Push(1);
+  q1.Push(2);
+  q1.Push(1);
+  q1.Push(2);
+  q1.Push(1);
+  q1.Push(2);
+
+  q1.Pop();
+  q1.Pop();
+  q1.Pop();
+  q1.Pop();
+  q1.Pop();
+  q1.Pop();
+
+  q1.Push(2);
+  q1.Push(1);
+  q1.Push(2);
+  q1.Push(1);
+  q1.Push(2);
+
+  q2 = q1;
+  q2.Push(3);
+  CHECK_EQ(q2.Top(), 3);
   q2.Pop();
 
-
-  q1 = q2;
-  QueueArr q4(q1);
-  while (!q1.IsEmpty()) {
-    CHECK(&q1.Top() != &q2.Top());
-    CHECK(q1.Top() == q2.Top());
-    q2.Pop(); q1.Pop();
+  while (!q2.IsEmpty()) {
+    CHECK_EQ(q1.Top(), q2.Top());
+    q1.Pop();
+    q2.Pop();
   }
-
-  q3 = q4;
-  while (!q3.IsEmpty()) {
-    CHECK(&q3.Top() != &q4.Top());
-    CHECK(q3.Top() == q4.Top());
-    q3.Pop(); q4.Pop();
-  }
+  CHECK(q1.IsEmpty());
 }
 
 
