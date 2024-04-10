@@ -4,6 +4,7 @@
 #define BITSET_HPP
 
 #include <iosfwd>
+#include <fstream>
 #include <cstdint>
 #include <vector>
 #include <stdexcept>
@@ -66,14 +67,18 @@ public:
   
   void Fill(const bool value);
 
+  std::ostream& WriteTxt(std::ostream&) const;
+  std::ostream& WriteBinary(std::ostream&) const;
+  std::istream& ReadTxt(std::istream&);
+  std::istream& RaadBinary(std::istream&);
+
 private:
   std::vector<uint32_t> bits_;
   int32_t size_ = 0;
 };
 
-std::ostream& operator<<(std::ostream& os, const BitSet& rhs) noexcept;
 std::istream& operator>>(std::istream& is, BitSet& rhs) noexcept;
-
+std::ostream& operator<<(std::ostream& is, const BitSet& rhs) noexcept;
 
 [[nodiscard]] BitSet operator&(const BitSet& lhs, const BitSet& rhs);
 [[nodiscard]] BitSet operator|(const BitSet& lhs, const BitSet& rhs);

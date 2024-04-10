@@ -98,6 +98,9 @@ bool BitSet::operator!=(const BitSet& rhs) {
 }
 
 BitSet::BiA BitSet::operator[](const int32_t idx) {
+  if (idx < 0 || idx >= this->Size()) {
+    throw std::out_of_range("Out Of Range");
+  }
   return {*this, idx};
 }
 
@@ -170,8 +173,19 @@ BitSet& BitSet::operator~() {
 };
 
 const bool BitSet::operator[](const int32_t idx) const {
+  if (idx < 0 || idx >=this->Size()) {
+    throw std::out_of_range("Out Of Range");
+  }
   return this->Get(idx);
 };
+
+std::ostream& BitSet::WriteTxt(std::ostream& os) const {
+  std::ofstream MyFile;
+  MyFile.open("C:/Users/Huawei/source/repos/misis2024s - 23 - 01 - bauer - v - v/prj.test/test.txt");
+  MyFile << 1;
+  MyFile.close();
+  return os;
+}
 
 std::ostream& operator<<(std::ostream& os,const BitSet& rhs) noexcept {
   int32_t str_num = 1;
