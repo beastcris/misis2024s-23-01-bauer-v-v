@@ -11,7 +11,7 @@
 
 const uint32_t CEIL_NUM = 4294967295;
 const uint32_t FLOOR_NUM = 0;
-const std::string PATH_OUTPUT = "C:/Users/Huawei/source/repos/misis2024s-23-01-bauer-v-v/prj.test/test.txt";
+const std::string PATH_OUTPUT = "C:/Users/Huawei/source/repos/misis2024s-23-01-bauer-v-v/prj.test/output.txt";
 
 class BitSet {
 
@@ -78,8 +78,8 @@ private:
   int32_t size_ = 0;
 };
 
-std::istream& operator>>(std::istream& is, BitSet& rhs) noexcept;
-std::ostream& operator<<(std::ostream& is, const BitSet& rhs) noexcept;
+//std::istream& operator>>(std::istream& is, BitSet& rhs) noexcept ;
+//std::ostream& operator<<(std::ostream& is, const BitSet& rhs) noexcept;
 
 [[nodiscard]] BitSet operator&(const BitSet& lhs, const BitSet& rhs);
 [[nodiscard]] BitSet operator|(const BitSet& lhs, const BitSet& rhs);
