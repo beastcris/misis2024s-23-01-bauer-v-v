@@ -2,7 +2,7 @@
 #include "doctest.h"
 #include <iostream>
 #include <bitset/bitset.hpp>
-
+ 
 TEST_CASE("Based") {
   BitSet a(32);
 
@@ -147,31 +147,26 @@ TEST_CASE("Resize") {
   b1.Resize(200);
 }
 
-TEST_CASE("Output") {
-  BitSet a(39);
 
-  a[0] = 1;
-  a[4] = 1;
-  a[11] = 1;
-  std::cout << a;
 
-  a[35] = 1;
-  a[19] = 1;
-  std::cout << a;
 
-  BitSet b(7528);
+TEST_CASE("norm") {
+  BitSet a(29);
+  a[14] = 1;
+  a[1] = 1;
+  a[5] = 1;
+  a.WriteTxt(std::cout);
+  BitSet b(a);
 
-  for (int32_t i = 0; i < b.Size(); ++i) {
-    if (i % 3 == 0) {
-      b[i] = 1;
-    }
-  }
+  b[1] = 0;
+  b[2] = 1;
+  b.WriteTxt(std::cout);
 
-  std::cout << b;
-}
+  BitSet c(194);
+  c[1] = 1;
+  c[12] = c[14] = 1;
+  c.WriteTxt(std::cout);
 
-TEST_CASE("Input") {
-  BitSet a(17);
-  std::cin >> a;
-  std::cout << a;
+  BitSet d(1563);
+  d.WriteTxt(std::cout);
 }
