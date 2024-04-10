@@ -2,6 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include <sys/stat.h>
 
 int32_t BitSet::Size() const noexcept{
   return size_;
@@ -180,10 +181,41 @@ const bool BitSet::operator[](const int32_t idx) const {
 };
 
 std::ostream& BitSet::WriteTxt(std::ostream& os) const {
-  std::ofstream MyFile;
-  MyFile.open("C:/Users/Huawei/source/repos/misis2024s - 23 - 01 - bauer - v - v/prj.test/test.txt");
-  MyFile << 1;
-  MyFile.close();
+  static long long cnt = 0;
+  std::ofstream myfile;
+  if (cnt == 0) {
+    myfile.open(PATH_OUTPUT);
+  }
+  else {
+    myfile.open(PATH_OUTPUT, std::ios_base::app);
+  }
+
+  int32_t str_num = 1;
+  int32_t vec_idx = 0;
+  while (vec_idx < (this->Size() - 1) / 32 + 1) {
+    int32_t i = vec_idx * 32;
+    for (int32_t idx = i; idx < i + 32; ++idx) {
+      if (idx >= this->Size()) {
+        vec_idx = (this->Size() - 1) / 32 + 1;
+        break;
+      }
+      myfile << (*this)[idx];
+      if ((idx + 1) % 16 == 0) {
+        myfile << " |" << str_num << std::endl;
+        ++str_num;
+      }
+      else if ((idx + 1) % 4 == 0) {
+        myfile << ' ';
+      }
+    }
+    ++vec_idx;
+  }
+  for (int32_t i = 0; i < 16 - (this->Size()) % 16 + (16 - (this->Size()) % 16)/4 + 1; ++i) {
+    myfile << ' ';
+  }
+  myfile << '|' << str_num;
+  myfile << std::endl << "====================" << std::endl;
+  ++cnt;
   return os;
 }
 
