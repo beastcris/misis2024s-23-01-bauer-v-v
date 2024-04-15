@@ -13,12 +13,27 @@ enum A {
 };
 
 int main() {
+  int a, b, c;
+  std::cin >> a >> b >> c;
   
-  std::vector<int> a = { 1,1,1 };
-  std::vector<int> b = { 2,1 };
-  std::cout << (a == b) << '\n';
-
-  int32_t i = 2000000000;
-            /*4294967295*/
-  std::cout << i;
+  
+  if (c < 0) {
+    std::cout << "NO SOLUTION";
+  }
+  else if (a == 0) {
+    if (b == c * c) {
+      std::cout << "MANY SOLUTIONS";
+    }
+    else {
+      std::cout << "NO SOLUTIONS";
+    }
+  }
+  else {
+    if ((c * c - b) % a == 0) {
+      std::cout << (c * c - b) / a;
+    }
+    else {
+      std::cout << "NO SOLUTIONS";
+    }
+  }
 }
