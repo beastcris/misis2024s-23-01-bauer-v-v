@@ -147,9 +147,6 @@ TEST_CASE("Resize") {
   b1.Resize(200);
 }
 
-
-
-
 TEST_CASE("norm") {
   BitSet a(29);
   a[14] = 1;
@@ -169,4 +166,15 @@ TEST_CASE("norm") {
 
   BitSet d(1563);
   d.WriteTxt(std::cout);
+
+  BitSet f(32);
+  f.WriteTxt(std::cout);
+}
+
+TEST_CASE("input") {
+
+  BitSet a(32);
+  a.ReadTxt(std::cin);
+
+  a.WriteTxt(std::cout);
 }
