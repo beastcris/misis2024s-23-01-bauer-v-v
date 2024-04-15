@@ -12,6 +12,7 @@
 const uint32_t CEIL_NUM = 4294967295;
 const uint32_t FLOOR_NUM = 0;
 const std::string PATH_OUTPUT = "C:/Users/Huawei/source/repos/misis2024s-23-01-bauer-v-v/prj.test/output.txt";
+const std::string PATH_INPUT = "C:/Users/Huawei/Source/Repos/misis2024s-23-01-bauer-v-v/prj.test/input.txt";
 
 class BitSet {
 

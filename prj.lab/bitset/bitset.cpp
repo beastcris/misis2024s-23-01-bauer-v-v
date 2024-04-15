@@ -200,21 +200,74 @@ std::ostream& BitSet::WriteTxt(std::ostream& os) const {
         break;
       }
       myfile << (*this)[idx];
-      if ((idx + 1) % 16 == 0) {
+      if ((idx + 1) % 32 == 0) {
         myfile << " |" << str_num << std::endl;
         ++str_num;
       }
-      else if ((idx + 1) % 4 == 0) {
+      else if ((idx + 1) % 8 == 0) {
         myfile << ' ';
       }
     }
     ++vec_idx;
   }
-  for (int32_t i = 0; i < 16 - (this->Size()) % 16 + (16 - (this->Size()) % 16)/4 + 1; ++i) {
-    myfile << ' ';
+  if (this->Size()%32!=0) {
+    for (int32_t i = 0; i < 32 - (this->Size()) % 32 + (32 - (this->Size()) % 32)/8 + 1; ++i) {
+      myfile << ' ';
+    }
+    myfile << '|' << str_num << std::endl;
   }
-  myfile << '|' << str_num;
-  myfile << std::endl << "====================" << std::endl;
+  
+  myfile  << "=" << std::endl;
   ++cnt;
   return os;
+}
+
+std::istream& BitSet::ReadTxt(std::istream& is) {
+  static const std::string nums{ "0123456789" };
+  int32_t idx = 0;
+  int32_t space_idx = -1;
+  std::string input{ "" };
+  std::ifstream myfile;
+  myfile.open(PATH_INPUT);
+  while (std::getline(myfile, input)) {
+    if (input == "=") { break; }
+    if (input != "") {
+      if (is.good() || (is.eof() && !is.bad())) {
+        for (int32_t i = 0; i < input.length(); ++i) {
+          if (input[i] == ' ') {
+            if (i - space_idx - 1!= 8) {
+              is.setstate(std::ios_base::badbit);
+              break;
+            }
+            space_idx = i;
+          }
+          else {
+            if (input[i] == '1' && i<=34) {
+              (*this)[idx] = 1;
+              std::cout << (*this)[idx] << std::endl;
+              ++idx;
+            }
+            else if (input[i] == '0' && i<=34) {
+              (*this)[idx] = 0;
+              ++idx;
+            }
+            else if (input[i] != '|') {
+              bool flag = true;
+              for (int j = 0; j < nums.length(); ++j) {
+                if (input[i] == nums[j]) {
+                  flag = false;
+                }
+              }
+              if (flag) {
+                is.setstate(std::ios_base::badbit);
+              }
+              break;
+            }
+          }
+        }
+      }
+    }
+    
+  }
+  return is;
 }
