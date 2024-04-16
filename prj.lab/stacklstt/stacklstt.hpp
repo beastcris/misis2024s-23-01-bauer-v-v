@@ -40,7 +40,7 @@ private:
     Node(T& rhs) :data_(rhs) {};
     ~Node() = default;
 
-    T data_ = { 0,0 };
+    T data_ = { 0 };
     Node* next = nullptr;
   };
 
