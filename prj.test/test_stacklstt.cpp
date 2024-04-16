@@ -30,6 +30,14 @@ void get_values(std::vector<bool>& values, int& size) {
   }
 }
 
+template<class T>
+void check_eq( StackLstT<T>& lhs,  StackLstT<T>& rhs) {
+  while (!lhs.IsEmpty()) {
+    CHECK_EQ(lhs.Top(), rhs.Top());
+    lhs.Pop();
+    rhs.Pop();
+  }
+}
 
 TEST_CASE_TEMPLATE("based", T, int, double, Complex, std::string, bool) {
   std::vector<T> values;
@@ -37,24 +45,29 @@ TEST_CASE_TEMPLATE("based", T, int, double, Complex, std::string, bool) {
   get_values(values, size);
   SUBCASE("operator=") {
     StackLstT<T> a;
-    
     for (int i = 0; i < values.size(); ++i) {
       a.Push(values[i]);
     }
-
     StackLstT<T> b;
     b = a;
+    check_eq(a, b);
+  }
 
-    while (!a.IsEmpty()) {
-      CHECK_EQ(a.Top(), b.Top());
-      a.Pop();
-      b.Pop();
-    }
+  SUBCASE("copy ctor") {
+    StackLstT<T> a;
+
+    a.Push(values[4]);
+    a.Push(values[5]);
+
+    StackLstT<T> b(a);
+
+    check_eq(a, b);
+    CHECK(a.IsEmpty());
+    CHECK(b.IsEmpty());
   }
 
   SUBCASE("move semantics") {
     StackLstT<T> a;
-
 
     for (int i = 0; i < 10000; ++i) {
       a.Push(values[i % size]);
@@ -75,11 +88,7 @@ TEST_CASE_TEMPLATE("based", T, int, double, Complex, std::string, bool) {
 
     std::cout << res1 << '\n';
 
-    while (!c.IsEmpty()) {
-      CHECK_EQ(c.Top(), b.Top());
-      c.Pop();
-      b.Pop();
-    }
+    check_eq(c, b);
 
     auto start2 = std::chrono::high_resolution_clock::now();
     a = d;
@@ -89,11 +98,7 @@ TEST_CASE_TEMPLATE("based", T, int, double, Complex, std::string, bool) {
 
     std::cout << res2;
 
-    while (!d.IsEmpty()) {
-      CHECK_EQ(a.Top(), d.Top());
-      d.Pop();
-      a.Pop();
-    }
+    check_eq(d, a);
   }
   
 }
