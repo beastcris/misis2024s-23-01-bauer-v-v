@@ -57,8 +57,8 @@ TEST_CASE_TEMPLATE("based", T, int, double, Complex, std::string, bool) {
 
 
     for (int i = 0; i < 10000; ++i) {
-      a.Push(values[i % 10]);
-      a.Push(values[i % 10]);
+      a.Push(values[i % size]);
+      a.Push(values[i % size]);
     }
     StackLstT<T> b;
     b.Push(values[0]);
