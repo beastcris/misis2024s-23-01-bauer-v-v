@@ -1,6 +1,10 @@
 add_executable (test_stack test_stack.cpp)
 target_link_libraries(test_stack stackarr)
 
+add_executable (test_stackarrt test_stackarrt.cpp)
+target_link_libraries(test_stackarrt stackarrt)
+target_link_libraries(test_stackarrt complex)
+
 add_executable(test_stacklist test_stacklist.cpp)
 target_link_libraries(test_stacklist stacklst)
 
