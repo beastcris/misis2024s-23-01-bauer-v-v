@@ -1,6 +1,6 @@
 
-#ifndef QUEUELST_HPP
-#define QUEUELST_HPP
+#ifndef QUEUELSTT_HPP
+#define QUEUELSTT_HPP
 #include <iosfwd>
 #include <stdexcept>
 
