@@ -32,26 +32,27 @@ double** GaussianMatrix(const int& length,  const double& sigma ) {
 int main() {
   //std::cout << std::fixed << std::setprecision(5);
 
-  double sigma = 1;
+  double sigma = 2;
   int matrix_lenght = 1 + 2 * ceil(2 * sigma);
   double** weights = GaussianMatrix(matrix_lenght, sigma);
 
 
-  cv::Mat img = cv::imread("C:/Users/Huawei/Desktop/mona.jpg");
-  cv::Mat img_new = cv::imread("C:/Users/Huawei/Desktop/mona.jpg");
+  cv::Mat img = cv::imread("C:/Users/Huawei/Desktop/noise_mona2.jpg");
+  cv::Mat img_new = cv::imread("C:/Users/Huawei/Desktop/noise_mona2.jpg");
+  cv::Mat test = img.clone();
 
-  for (size_t i = matrix_lenght + 1; i < img.rows-matrix_lenght/2; ++i) {
-    for (size_t j = matrix_lenght + 1; j < img.cols-matrix_lenght/2; ++j) {
+  for (size_t i = 0; i < img.rows; ++i) {
+    for (size_t j = 0; j < img.cols; ++j) {
       
       uchar b_sum = 0;
       uchar g_sum = 0;
       uchar r_sum = 0;
-      for (size_t i_ = i - matrix_lenght/2; i_ <= i + matrix_lenght/2; ++i_) {
-        for (size_t j_ = j - matrix_lenght/2; j_ <= j + matrix_lenght/2; ++j_) {
+      for (size_t i_ = std::max( static_cast<int>(i) - matrix_lenght / 2, 0); i_ <= std::min( static_cast<int>(i) + matrix_lenght/2, img.rows - 1); ++i_) {
+        for (size_t j_ = std::max(static_cast<int>(j) - matrix_lenght / 2, 0); j_ <= std::min(static_cast<int>(j) + matrix_lenght/2, img.cols - 1); ++j_) {
           cv::Vec3b& BGR = img.at<cv::Vec3b>(i_, j_);
-          b_sum += BGR[0] * weights[i_ % (i - matrix_lenght/2)][j_ % (j - matrix_lenght/2)];
-          g_sum += BGR[1] * weights[i_ % (i - matrix_lenght / 2)][j_ % (j - matrix_lenght / 2)];
-          r_sum += BGR[2] * weights[i_ % (i - matrix_lenght / 2)][j_ % (j - matrix_lenght / 2)];
+          b_sum += BGR[0] * weights[matrix_lenght / 2 - std::abs(static_cast<int>(i_) - std::abs(static_cast<int>(i)))][matrix_lenght / 2 - std::abs(static_cast<int>(j_) - std::abs(static_cast<int>(j)))];
+          g_sum += BGR[1] * weights[matrix_lenght / 2 - std::abs(static_cast<int>(i_) - std::abs(static_cast<int>(i)))][matrix_lenght / 2 - std::abs(static_cast<int>(j_) - std::abs(static_cast<int>(j)))];
+          r_sum += BGR[2] * weights[matrix_lenght / 2 - std::abs(static_cast<int>(i_) - std::abs(static_cast<int>(i)))][matrix_lenght / 2 - std::abs(static_cast<int>(j_) - std::abs(static_cast<int>(j)))];
         }
       }
       cv::Vec3b& pix = img_new.at<cv::Vec3b>(i, j);
@@ -63,16 +64,17 @@ int main() {
     std::cout << '\n';
   }
 
+  cv::GaussianBlur(test, test, cv::Size(13, 13), 0);
+
   cv::String window_name1 = "old_img";
   cv::String window_name2 = "new_img";
 
   cv::namedWindow(window_name1);
   cv::namedWindow(window_name2);
 
-  cv::imshow(window_name1, img);
+  cv::imshow(window_name1, test);
   cv::imshow(window_name2, img_new);
   cv::waitKey(0);
-
-
+  cv::waitKey(0);
 
 }
