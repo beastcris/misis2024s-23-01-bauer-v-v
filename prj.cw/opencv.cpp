@@ -32,7 +32,7 @@ double** GaussianMatrix(const int& length,  const double& sigma ) {
 int main() {
   //std::cout << std::fixed << std::setprecision(5);
 
-  double sigma = 2;
+  double sigma = 1.5;
   int matrix_lenght = 1 + 2 * ceil(2 * sigma);
   double** weights = GaussianMatrix(matrix_lenght, sigma);
 
@@ -72,9 +72,8 @@ int main() {
   cv::namedWindow(window_name1);
   cv::namedWindow(window_name2);
 
-  cv::imshow(window_name1, test);
+  cv::imshow(window_name1, img);
   cv::imshow(window_name2, img_new);
   cv::waitKey(0);
   cv::waitKey(0);
-
 }
