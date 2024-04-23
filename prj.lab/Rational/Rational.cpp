@@ -243,7 +243,6 @@ std::istream& Rational::ReadFrom(std::istream& is) noexcept{
   int64_t den{ 0 };
 
   is >> num >> separator >> den;
-  std::cout << num << ' ' << separator << ' ' << den;
   if (is.good() || (is.eof() && !is.bad())) {
     if (Rational::separator == separator && den != 0) {
       num_ = num;
