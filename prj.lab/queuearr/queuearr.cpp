@@ -47,7 +47,7 @@ void QueueArr::Push(const Complex& rhs) {
     head_ = 0;
     tail_ = 0;
     data_[head_] = rhs;
-  } else if (tail_ + 1 == head_) {
+  } else if ( (tail_ + 1) % size_ == head_ ) {
     Complex* tmp = new Complex[size_ * 2];
     std::copy(data_ + head_, data_ + size_ , tmp);
     std::copy(data_, data_ + head_, tmp + size_ - head_ + 1);
@@ -100,7 +100,7 @@ QueueArr& QueueArr::operator=(const QueueArr& rhs) {
   }
   
   if (rhs.tail_ < rhs.head_) {
-    tail_ = rhs.size_ - rhs.size_ + rhs.tail_;
+    tail_ = rhs.size_ - rhs.head_ + rhs.tail_;
     head_ = 0;
     std::copy(rhs.data_ + rhs.head_, rhs.data_ + rhs.size_, data_);
     std::copy(rhs.data_, rhs.data_ + rhs.tail_ + 1, data_ + rhs.size_ - rhs.head_);
