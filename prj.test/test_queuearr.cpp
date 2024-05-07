@@ -82,15 +82,17 @@ TEST_CASE("Copying constructor and operator=") {
 
   q2 = q1;
   q2.Push(3);
-  CHECK_EQ(q2.Top(), 3);
-  q2.Pop();
+  CHECK_EQ(q2.Top(), 1);
 
-  while (!q2.IsEmpty()) {
+  while (!q1.IsEmpty()) {
     CHECK_EQ(q1.Top(), q2.Top());
     q1.Pop();
     q2.Pop();
   }
   CHECK(q1.IsEmpty());
+  CHECK_EQ(q2.Top(), 3);
+  q2.Pop();
+  CHECK(q2.IsEmpty());
 }
 
 
