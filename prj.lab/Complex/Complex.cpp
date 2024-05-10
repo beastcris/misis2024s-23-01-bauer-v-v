@@ -117,17 +117,9 @@ Complex& Complex::operator/=(const Complex& comp) {
   return *this;
 }
 
-std::ostream& operator<<(std::ostream& ostrm, const Complex& rhs) noexcept {
-  return rhs.WriteTo(ostrm);
-}
-
 std::ostream& Complex::WriteTo(std::ostream& ostrm) const noexcept{
   ostrm << leftBrace << re << separator << im << rightBrace;
   return ostrm;
-}
-
-std::istream& operator>>(std::istream& istrm, Complex& rhs) noexcept {
-  return rhs.ReadFrom(istrm);
 }
 
 std::istream& Complex::ReadFrom(std::istream& is) noexcept{
@@ -148,4 +140,12 @@ std::istream& Complex::ReadFrom(std::istream& is) noexcept{
     }
   }
   return is;
+}
+
+std::ostream& operator<<(std::ostream& ostrm, const Complex& rhs) noexcept {
+  return rhs.WriteTo(ostrm);
+}
+
+std::istream& operator>>(std::istream& istrm, Complex& rhs) noexcept {
+  return rhs.ReadFrom(istrm);
 }
