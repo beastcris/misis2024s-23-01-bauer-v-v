@@ -1,0 +1,1 @@
+add_library(robobuba robobuba.hpp robobuba.cpp)
