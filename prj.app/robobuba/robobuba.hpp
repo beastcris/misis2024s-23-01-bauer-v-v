@@ -11,7 +11,7 @@ struct Buffer {
   Buffer(int size) { std::vector<int> a(size);  std::swap(values, a); };
 
   std::vector<int> values;
-  int idx = 0;
+  int64_t idx = 0;
 };
 
 class Command {
